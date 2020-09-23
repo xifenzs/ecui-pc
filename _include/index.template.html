@@ -1,0 +1,55 @@
+<!-- target:content -->
+<div class="content-wrap">
+    <div class="nav-bar-wrap">
+        <div class="nav-bar fixed-width" id="navBar">
+            <img class="logo" src="images/logo.png" />
+            <ul class="nav-bar-tree" ui="type:yiche.ui.ModuleLink;id:nav-bar">
+                <label class="root">根</label>
+                <ul ui="ext-permission:eq.it;">
+                    <label>
+                        <a class="label" href="javascript:void(0);">菜单一</a>
+                        <ul>
+                            <li ui="type:yiche.ui.ModuleLinkItem;">
+                                <icon class="icon"></icon><a href="#/index~menu=1">菜单一</a>
+                            </li>
+                        </ul>
+                    </label>
+                </ul>
+                <ul ui="ext-permission:eq.admin;">
+                    <label>
+                        <a class="label" href="#/index~menu=2">菜单二</a>
+                    </label>
+                </ul>
+                <ul>
+                    <label>
+                        <a class="label" href="#/index~menu=3">菜单三</a>
+                    </label>
+                </ul>
+                <ul>
+                    <label>
+                        <a class="label" href="#/index~menu=4">菜单四</a>
+                    </label>
+                </ul>
+                <ul>
+                    <label>
+                        <a class="label" href="#/index~menu=5">菜单五</a>
+                    </label>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="location-wrap">
+            <div class="location fixed-width" id="location_page"></div>
+        </div>
+        <div class="content-main" id="container"></div>
+    </div>
+</div>
+<div id="dialogContainer"></div>
+<div id="dialogContainer_1"></div>
+<div id="dialogContainer_2"></div>
+<div class="loading-before"></div>
+<div class="loading-after"></div>
+
+<!-- target:index -->
+<div>首页${menu}</div>
