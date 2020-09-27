@@ -148,7 +148,7 @@
      *
      */
     ecui.esr.onbeforerequest = function() {
-        // window.requestCount++;
+        window.requestCount++;
         ecui.dom.addClass(document.body, 'ui-loading');
     };
 
@@ -158,10 +158,10 @@
      *
      */
     ecui.esr.onafterrequest = function() {
-        // window.requestCount = Math.max(0, --window.requestCount);
-        // if (window.requestCount <= 0) {
-        ecui.dom.removeClass(document.body, 'ui-loading');
-        // }
+        window.requestCount = Math.max(0, --window.requestCount);
+        if (window.requestCount <= 0) {
+            ecui.dom.removeClass(document.body, 'ui-loading');
+        }
     };
 
     /**
