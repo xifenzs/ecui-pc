@@ -230,7 +230,7 @@
         });
         ecui.util.extend = Object.assign;
         // 设置 默认路由
-        ecui.esr.DEFAULT_PAGE = '';
+        ecui.esr.DEFAULT_PAGE = '/demo/index';
         // 设置 选项控件的文本在 options 中的名称
         ecui.ui.$AbstractSelect.prototype.TEXTNAME = 'code';
         // text输入框 禁用输入历史记录
@@ -323,7 +323,6 @@
             }
         };
     };
-    ecui.esr.addRoute('index', { main: 'container' });
     document.write('<script type="text/javascript" src="_include/filter.js"></script>');
     document.write('<script type="text/javascript" src="_include/index.controls.js"></script>');
 }());
