@@ -1,49 +1,56 @@
-<!-- target:content -->
+<!-- target:contentTarget -->
 <div class="content-wrap">
-    <div class="nav-bar-wrap">
-        <div class="nav-bar fixed-width" id="navBar">
-            <img class="logo" src="images/logo.png" />
-            <ul class="nav-bar-tree" ui="type:yiche.ui.ModuleLink;id:nav-bar">
-                <label class="root">根</label>
-                <ul ui="ext-permission:eq.it;">
-                    <label>
-                        <a class="label" href="javascript:void(0);">菜单一</a>
-                        <ul>
-                            <li ui="type:yiche.ui.ModuleLinkItem;">
-                                <icon class="icon"></icon><a href="#/index~menu=1">菜单一</a>
-                            </li>
-                        </ul>
-                    </label>
-                </ul>
-                <ul ui="ext-permission:eq.admin;">
-                    <label>
-                        <a class="label" href="#/index~menu=2">菜单二</a>
-                    </label>
-                </ul>
-                <ul>
-                    <label>
-                        <a class="label" href="#/index~menu=3">菜单三</a>
-                    </label>
-                </ul>
-                <ul>
-                    <label>
-                        <a class="label" href="#/index~menu=4">菜单四</a>
-                    </label>
-                </ul>
-                <ul>
-                    <label>
-                        <a class="label" href="#/index~menu=5">菜单五</a>
-                    </label>
-                </ul>
-            </ul>
+    <div class="content-header">
+        <div class="content-header-left">
+            <div class="logo-wrap">
+                <img src="images/logo2x.png" alt="">
+                <span>效果DSP</span>
+            </div>
+            <div class="nav-wrap" id="nav_bar" ui="type:yiche.ui.CustomNavs;">
+                <!-- for: ${GLOBLE_ROUTE_LISTS} as ${item} -->
+                <!-- if: ${item.children} && ${item.children.length} > 0 &&  ${item.show} -->
+                <li class="nav-item" ui="type:@CustomNavsParent;navItem:&{item}">
+                    <span class="font-14">${item.name}</span>
+                    <div class="nav-item-bar"></div>
+                    <ul class="nav-child-wrap">
+                        <!-- for: ${item.children} as ${cItem} -->
+                        <!-- if: ${cItem.show} -->
+                        <li class="child-item" ui="type:@CustomNavsChild;navItem:&{cItem}">
+                            <a class="c-a" href="#${cItem.route}">
+                                <span class="font-14">${cItem.name}</span>
+                            </a>
+                        </li>
+                        <!-- /if -->
+                        <!-- /for -->
+                    </ul>
+                </li>
+                <!-- else -->
+                <!-- if: ${item.show} -->
+                <li class="nav-item" ui="type:@CustomNavsParent;navItem:&{item}">
+                    <a class="p-a" href="#${item.route}">
+                        <span>${item.name}</span>
+                        <div class="nav-item-bar"></div>
+                    </a>
+                </li>
+                <!-- /if -->
+                <!-- /if -->
+                <!-- /for -->
+            </div>
+        </div>
+        <div class="content-header-right user-exit">
+            <!-- use: userLogooutTarget(userName=${GLOBLE_USER_INFO.userName}) -->
+        </div>
+    </div>
+    <div class="layout-crumbs">
+        <div class="crumbs-left"></div>
+        <div class="crumbs-right">
+            <!-- use: userLogooutTarget(userName=${GLOBLE_USER_INFO.userName}) -->
         </div>
     </div>
     <div class="content">
-        <div class="location-wrap">
-            <div class="location fixed-width" id="location_page"></div>
-        </div>
         <div class="content-main" id="container"></div>
     </div>
+    <div class="copy_right"></div>
 </div>
 <div id="dialogContainer"></div>
 <div id="dialogContainer_1"></div>
@@ -51,3 +58,9 @@
 <div class="loading-before"></div>
 <div class="loading-after"></div>
 
+
+<!-- target:userLogooutTarget -->
+<span class="user-name">欢迎您, ${userName}</span>
+<div class="exit" ui="type:yiche.ui.CustomLogout">
+    <img src="images/exit.png" alt="">
+</div>

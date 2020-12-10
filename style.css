@@ -30,13 +30,13 @@ body {
     padding-right: 35px;
     line-height: 30px;
     text-align: center;
-    cursor: pointer;
     margin-left: 40px;
     width: auto !important;
     -webkit-border-radius: 0px!important;
     -moz-border-radius: 0px!important;
     -ms-border-radius: 0px!important;
     -o-border-radius: 0px!important;
+    cursor: pointer;
 
     -moz-user-select:none; /*火狐*/
     -webkit-user-select:none; /*webkit浏览器*/
@@ -112,7 +112,6 @@ body {
 .ui-combox-options .ui-item,
 .ui-select-options .ui-item {
     overflow: hidden;
-    /* white-space: nowrap; */
     text-overflow: ellipsis;
     font-size: 12px;
     color: #333333;
@@ -123,26 +122,19 @@ body {
 .ui-combox-options .ui-item-selected,
 .ui-combox-options .ui-combox-item-selected,
 .ui-select-options .ui-item-selected {
-    /*background: #2E60FF;*/
     color: #3366FF;
-    /*background: #F4F4F4;*/
 }
 .ui-combox-options .ui-item-hover,
 .ui-combox-options .ui-combox-item-hover,
 .ui-select-options .ui-item-hover {
-    /*background: #2E60FF;*/
-    /*color: #fff;*/
     background: #F4F4F4;
-    /*color: #333333;*/
 }
 
 .ui-combox,
 .ui-combox .ui-combox-text input {
     background: #ffffff url(images/ecui/arrow.png) no-repeat 150px center;
 }
-/*.ui-combox .ui-combox-text .ui-placeholder {
-    display: none;
-}*/
+
 .ui-text-error input,
 .ui-select-error .ui-select-text,
 .ui-combox-error,
@@ -164,7 +156,6 @@ body {
     background: #F7F7F7;
 }
 .warning {
-    /* 警示色 */
     color: #d0021b;
 }
 .ui-radio {
@@ -359,7 +350,6 @@ body {
             right: 0;
             padding: 10px 0;
             background: #FFFFFF;
-            /*border: 1px solid #85A4FF;*/
             box-shadow: 1px 3px 6px 2px #CCDAFF;
             -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#CCDAFF')";
             filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135,Color='#CCDAFF');
@@ -626,14 +616,6 @@ body {
             margin-left: 6px;
             margin-top: -2px;
         }
-       /* .collapse-icon {
-            background: url('images/base/collapse-icon.png') no-repeat no-repeat center center;
-            background-size: 100% 100%;
-        }
-        .expand-icon {
-            background: url('images/base/expand-icon.png') no-repeat no-repeat center center;
-            background-size: 100% 100%;
-        }*/
     }
 }
 
@@ -833,10 +815,10 @@ body {
     border: none;
 
     .ui-locked-table-left {
-        /*border-right: 1px solid #E6E6E6;*/
+       
     }
     .ui-locked-table-right {
-        /*border-left: 1px solid #E6E6E6;*/
+        
     }
     .ui-table-head {
         z-index: 10;
@@ -879,12 +861,12 @@ body {
             }
             a, strong {
                 color: #3076FC;
-                cursor: pointer;
                 display: inline-block;
                 vertical-align: middle;
                 width: auto;
                 height: auto;
                 font-size: 12px;
+                cursor: pointer;
             }
             a:hover, strong:hover {
                 text-decoration: underline;
@@ -1007,11 +989,8 @@ body {
         vertical-align: middle;
 
         .must-icon {
-            /*position: absolute;*/
             font-size: 24px;
             color: #F5523B;
-            /*top: 10px;*/
-            /*left: -10px;*/
             display: inline-block;
             vertical-align: middle;
             height: 16px;
@@ -1200,9 +1179,8 @@ body {
         height: 12px;
         line-height: 12px;
         margin: 0 5px;
-        cursor: pointer;
         color: #3366FF;
-        /*margin-top: -5px;*/
+        cursor: pointer;
     }
     .operate-btn.add {
         background: url('images/base/add.png') no-repeat no-repeat center center;
@@ -1396,7 +1374,6 @@ body {
     .ui-dialog-body {
         max-height: 550px;
         overflow-y: auto;
-        /*overflow-x: visible;*/
     }
     .ui-dialog-title {
         background: #3366FF;
@@ -1449,7 +1426,6 @@ body {
 
 /*暂无结果*/
 .no-result {
-    /*background: #fff url('images/icon_blank.png') no-repeat center center;*/
     padding: 140px 0px;
     text-align: center;
     font-size: 16px;
@@ -1596,11 +1572,8 @@ body {
         display: inline-block;
     }
     .must-icon {
-        /*position: absolute;*/
         font-size: 24px;
         color: #F5523B;
-        /*top: 10px;*/
-        /*left: -10px;*/
         display: inline-block;
         vertical-align: middle;
         height: 16px;

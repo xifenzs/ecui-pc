@@ -1,4 +1,5 @@
 (function() {
+    document.write('<script type="text/javascript" src="_include/util.js"></script>');
     var core = ecui,
         dom = core.dom,
         ui = core.ui,
@@ -12,114 +13,6 @@
             firefoxVersion: /firefox\/(\d+\.\d)/i.test(navigator.userAgent) ? +RegExp.$1 : undefined,
             safariVersion: !/(chrome|crios|ucbrowser)/i.test(navigator.userAgent) && /(\d+\.\d)(\.\d)?\s+.*safari/i.test(navigator.userAgent) ? +RegExp.$1 : undefined,
             now: util.formatDate(new Date(), 'yyyy-MM-dd')
-        },
-        ui: {},
-        util: {
-            /**
-             * 获取当前 dom/control 所属路由。
-             * @public
-             *
-             * @param {Element | Control} el 当前元素
-             */
-            getRoute: function(el) {
-                var route,
-                    parent = ecui.dom.parent(el instanceof ecui.ui.Control ? el.getMain() : el);
-                for (; parent; parent = ecui.dom.parent(parent)) {
-                    if (parent === document.body) {
-                        break;
-                    }
-                    if (parent.route !== undefined) {
-                        route = parent.route;
-                        break;
-                    }
-                }
-                return route;
-            },
-            /**
-             * 将带 <br/> 的字符串 通过<br/> 分割成数组。
-             * @public
-             *
-             * @param {String} value 带 <br/> 的字符串
-             */
-            parseBR: function(value) {
-                return value.split('<br/>');
-            },
-            /**
-             * 获取 input file 上传的文件的名字
-             * @public
-             *
-             * @param {DOM} input  
-             */
-            getFileName: function(input) {
-                var str = /macintosh|mac os x/i.test(navigator.userAgent) ? '/' : '\\';
-                var name = '';
-                if (input.files && input.files[0]) {
-                    name = input.files[0].name;
-                } else {
-                    name = (input.lastValue || input.value).split(str).pop();
-                }
-                return name;
-            },
-            /**
-             * 移除并释放已打开的dialog控件，用于离开路由时调用
-             * @public
-             *
-             */
-            removeDialog: function() {
-                var dialogContainer = ecui.$('dialogContainer'),
-                    dialogContainer_1 = ecui.$('dialogContainer_1'),
-                    dialogContainer_2 = ecui.$('dialogContainer_2');
-                if (dialogContainer) {
-                    ecui.dispose(dialogContainer);
-                    dialogContainer.innerHTML = '';
-                }
-                if (dialogContainer_1) {
-                    ecui.dispose(dialogContainer_1);
-                    dialogContainer_1.innerHTML = '';
-                }
-                if (dialogContainer_2) {
-                    ecui.dispose(dialogContainer_2);
-                    dialogContainer_2.innerHTML = '';
-                }
-            },
-
-            /**
-             * 设置页面title标题
-             * @public
-             *
-             * @param {Array} arr title数组
-             */
-            setLocationPage: function(data) {
-                var str = '';
-                for (var i = 0, item; item = data[i++];) {
-                    if (item.href) {
-                        str += util.stringFormat('<a href="{2}">{0}</a>{1}', item.text, i < data.length ? '<span> / </span>' : '', item.href);
-                    } else {
-                        str += util.stringFormat('<span>{0}</span>{1}', item.text, i < data.length ? '<span> / </span>' : '');
-                    }
-                }
-                ecui.$('location_page').innerHTML = str;
-            }
-        },
-
-        /**
-         * 初始化dialog控件。
-         * @public
-         *
-         * @param {string|Element} container dialog控件容器
-         * @param {string} targetName 模板名称
-         * @param {object} options 成功回调函数
-         *
-         * @return {Control} dialog 控件
-         */
-        initDialog: function(container, targetName, options) {
-            if (typeof container === 'string') {
-                container = ecui.$(container);
-            }
-            ecui.dispose(container);
-            container.innerHTML = ecui.esr.getEngine().render(targetName, options);
-            ecui.init(container);
-            return container.children[0].getControl();
         }
     };
 
@@ -192,7 +85,7 @@
         }
         if (code === 10302) {
             // 延迟 10ms 执行重定向，防止业务中有跳转登录页逻辑，导致页面跳转不正确
-            util.timer(function () {
+            util.timer(function() {
                 location.href = data.data;
             }, 10);
             return;
@@ -225,10 +118,9 @@
             'customReferer': window.location.href
         };
         // 配合后端重定向，地址栏地址改变时，将 location.href 更新到请求头的 customReferer 字段
-        ecui.dom.addEventListener(window, 'hashchange', function() {
-            ecui.esr.headers.customReferer = window.location.href;
-        });
-        ecui.util.extend = Object.assign;
+        // ecui.dom.addEventListener(window, 'hashchange', function() {
+        //     ecui.esr.headers.customReferer = window.location.href;
+        // });
         // 设置 默认路由
         ecui.esr.DEFAULT_PAGE = '/demo/index';
         // 设置 选项控件的文本在 options 中的名称
@@ -252,74 +144,58 @@
         };
 
         return {
-            model: [
-            ],
-            main: 'main',
-            view: 'content',
+            model: [],
+            main: 'base_layout', // 挂载容器
+            view: 'contentTarget', // 渲染模板
             onbeforerender: function(context) {
-               
-                yiche.info.staffs = context.staffs;
-                yiche.info.baseInfo = context.baseInfo;
-                yiche.info.permissionList = context.permissionList;
-                yiche.info.baseInfoMap = {};
-
-                // 封装所有的部门 递归获取
-                yiche.info.allDepartments = [];
-                if (context.allDepartments) {
-                    var rootDepartment = context.allDepartments[0];
-                    reachAlldepartments(rootDepartment);
-                }
-                for (var key in context.baseInfo) {
-                    yiche.info.baseInfoMap[key] = {};
-                    for (var i = 0, item; item = context.baseInfo[key][i++];) {
-                        yiche.info.baseInfoMap[key][item.code] = item.value;
-                    }
-                }
-                if (context.permissionList instanceof Array) {
-                    var permission = [];
-                    /**
-                     * 权限统一处理 ext扩展控件
-                     * @public
-                     *
-                     */
-                    ecui.ext.permission = {
-                        /**
-                         * 构造函数
-                         * @public
-                         *
-                         * @param {string} value 权限名称字符串
-                         */
-                        constructor: function(value) {
-                            this.permission = context.permissionList.indexOf(value) >= 0;
-                            if (!this.permission) {
-                                this.hide();
-                            }
-                            permission.push(value);
+                // 全局信息  菜单  用户信息  面包屑导航
+                context.GLOBLE_USER_INFO = {
+                    userName: '张三'
+                };
+                context.GLOBLE_ROUTE_LISTS = [{
+                    name: '广告计划',
+                    route: '/demo/index',
+                    show: true,
+                    children: []
+                }, {
+                    name: '广告组',
+                    route: '',
+                    show: true,
+                    children: [{
+                            name: '人群画像',
+                            show: false,
+                            route: '/hureport/hureport',
+                            children: []
                         },
-                        Events: {
-
+                        {
+                            name: '投放效果',
+                            show: false,
+                            route: '/humanage/humanage',
+                            children: []
                         }
-                    };
-                }
+                    ]
+                }, {
+                    name: '创意',
+                    route: '',
+                    show: true,
+                    children: [{
+                            name: '人群画像',
+                            show: false,
+                            route: '/hureport/hureport',
+                            children: []
+                        },
+                        {
+                            name: '投放效果',
+                            show: false,
+                            route: '/humanage/humanage',
+                            children: []
+                        }
+                    ]
+                }];
+                context.globleCrumbs = [];
             },
-            onafterrender: function() {
-                var loc = ecui.esr.getLocation().split('~')[0],
-                    setPage = false;
-                // 第一次进入页面、刷新页面时，设置导航栏默认选中状态
-                ecui.query(function(item) { return item instanceof yiche.ui.ModuleLinkItem; }).forEach(function(item) {
-                    var loc1 = ecui.dom.last(item.getMain()).getAttribute('href').slice(1).split('~')[0];
-                    if (!setPage && item.permission) {
-                        setPage = true;
-                        ecui.esr.DEFAULT_PAGE = loc1;
-                    }
-                    if (loc === loc1 || loc.split('.')[0] === loc1.split('.')[0]) {
-                        item.onclick();
-                        item.getParent().$nodeclick();
-                    }
-                });
-                if (!ecui.esr.DEFAULT_PAGE) {
+            onafterrender: function(context) {
 
-                }
             }
         };
     };
