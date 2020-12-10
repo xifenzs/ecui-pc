@@ -108,19 +108,19 @@ function create() {
         if [ $h5 ]; then
             layerStr=${template%%\/\*\*\*layer.html-end\*\*\*\/*}
             layerStr=${layerStr##*/\*\*\*layer.html-begin\*\*\*/}
-            layerStr=${layerStr//\{route\}/$routeName} 
+            layerStr=${layerStr//\{route\}/$module} 
             echo "$layerStr" >> $module/layer.$routeName.html
         fi
 
         jsStr=${template%%\/\*\*\*route.js-end\*\*\*\/*}
         jsStr=${jsStr##*/\*\*\*route.js-begin\*\*\*/}
-        jsStr=${jsStr//\{route\}/$routeName} 
+        jsStr=${jsStr//\{route\}/$module} 
         # $jsStr 加上引号，可以在输出到文件时保留换行符
         echo "$jsStr" >> $module/route.$routeName.js
 
         htmlStr=${template%%\/\*\*\*route.html-end\*\*\*\/*}
         htmlStr=${htmlStr##*/\*\*\*route.html-begin\*\*\*/}
-        htmlStr=${htmlStr//\{route\}/$routeName} 
+        htmlStr=${htmlStr//\{route\}/$module} 
         echo "$htmlStr" >> $module/route.$routeName.html
 
         cssStr=${template%%\/\*\*\*route.css-end\*\*\*\/*}
