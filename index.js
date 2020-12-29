@@ -1,5 +1,4 @@
 (function() {
-    document.write('<script type="text/javascript" src="_include/util.js"></script>');
     var core = ecui,
         dom = core.dom,
         ui = core.ui,
@@ -12,10 +11,13 @@
             chromeVersion: /Chrome\/(\d+\.\d)/i.test(navigator.userAgent) ? +RegExp.$1 : undefined,
             firefoxVersion: /firefox\/(\d+\.\d)/i.test(navigator.userAgent) ? +RegExp.$1 : undefined,
             safariVersion: !/(chrome|crios|ucbrowser)/i.test(navigator.userAgent) && /(\d+\.\d)(\.\d)?\s+.*safari/i.test(navigator.userAgent) ? +RegExp.$1 : undefined,
-            now: util.formatDate(new Date(), 'yyyy-MM-dd')
+            now: util.formatDate(new Date(), 'yyyy-MM-dd'),
+            PROJECT_NAME: '顶部导航项目模板', // logo旁的项目名称
+            STORAGE_HEADER: 'EFFECT_',
+            routeLists: [], // 项目中的全部路由
+            API_BASE: '/dsp-console/console/report/'
         }
     };
-
     /* 阻止 ie 按删除键会回退页面 - begin */
     function onkeydown(event) {
         var tags = ['INPUT', 'TEXTAREA', 'BUTTON', 'SUBMIT'];
@@ -75,18 +77,18 @@
      * @param {string} url 请求地址
      * @param {object} data 请求参数
      *
-     * @return {Object|numer} data.code为0时，返回 data.data ，否则返回 data.code
+     * @return {Object|numer} data.code为0时，返回 data.result ，否则返回 data.code
      */
     var noTipCodes = [300000, 500016];
     ecui.esr.onparsedata = function(url, data) {
         var code = data.code;
         if (0 === code) {
-            return data.data;
+            return data.result;
         }
         if (code === 10302) {
             // 延迟 10ms 执行重定向，防止业务中有跳转登录页逻辑，导致页面跳转不正确
             util.timer(function() {
-                location.href = data.data;
+                location.href = data.result;
             }, 10);
             return;
         } else if (code === 12011) {
@@ -101,7 +103,7 @@
             }
         } else {
             if (noTipCodes.indexOf(code) < 0) {
-                ecui.tip('error', data.msg);
+                ecui.tip('error', data.message);
             }
         }
         return data.code;
@@ -115,14 +117,22 @@
     ecui.esr.onready = function() {
         ecui.esr.headers = {
             'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json;charset=UTF-8',
             'customReferer': window.location.href
         };
         // 配合后端重定向，地址栏地址改变时，将 location.href 更新到请求头的 customReferer 字段
-        // ecui.dom.addEventListener(window, 'hashchange', function() {
-        //     ecui.esr.headers.customReferer = window.location.href;
-        // });
-        // 设置 默认路由
-        ecui.esr.DEFAULT_PAGE = '/demo/index';
+        ecui.dom.addEventListener(window, 'hashchange', function(e) {
+            // 设置请求头
+            ecui.esr.headers.customReferer = window.location.href;
+            // 获取当前路由
+            const toPath = e.newURL.split('#')[1].split('~')[0];
+            if (yiche.info.routeLists.indexOf(toPath) === -1) {
+                window.location.href = 'errorPage.html';
+            } else {
+                yiche.util.refreshMuneSelectedStatus('navMenu');
+            }
+        });
+
         // 设置 选项控件的文本在 options 中的名称
         ecui.ui.$AbstractSelect.prototype.TEXTNAME = 'code';
         // text输入框 禁用输入历史记录
@@ -143,6 +153,8 @@
             }.bind(this), 100);
         };
 
+        // 设置 默认路由
+        ecui.esr.DEFAULT_PAGE = '/doc/index';
         return {
             model: [],
             main: 'base_layout', // 挂载容器
@@ -152,46 +164,31 @@
                 context.GLOBLE_USER_INFO = {
                     userName: '张三'
                 };
+                // 路由列表
                 context.GLOBLE_ROUTE_LISTS = [{
-                    name: '广告计划',
-                    route: '/demo/index',
+                    name: '文档',
+                    route: '/doc/index',
                     show: true,
                     children: []
-                }, {
-                    name: '广告组',
-                    route: '',
-                    show: true,
-                    children: [{
-                            name: '人群画像',
-                            show: false,
-                            route: '/hureport/hureport',
-                            children: []
-                        },
-                        {
-                            name: '投放效果',
-                            show: false,
-                            route: '/humanage/humanage',
-                            children: []
-                        }
-                    ]
-                }, {
-                    name: '创意',
-                    route: '',
-                    show: true,
-                    children: [{
-                            name: '人群画像',
-                            show: false,
-                            route: '/hureport/hureport',
-                            children: []
-                        },
-                        {
-                            name: '投放效果',
-                            show: false,
-                            route: '/humanage/humanage',
-                            children: []
-                        }
-                    ]
                 }];
+                // 汇总路由
+                if (context.GLOBLE_ROUTE_LISTS.length > 0) {
+                    let route = [];
+                    context.GLOBLE_ROUTE_LISTS.forEach(pItem => {
+                        if (pItem.route) {
+                            route.push(pItem.route);
+                        } else {
+                            let itemChild = pItem.children;
+                            if (itemChild && itemChild.length > 0) {
+                                itemChild.forEach(cItem => {
+                                    cItem.route && route.push(cItem.route);
+                                })
+                            }
+                        }
+                    })
+                    yiche.info.routeLists = JSON.parse(JSON.stringify(route));
+                }
+                // 面包屑导航
                 context.globleCrumbs = [];
             },
             onafterrender: function(context) {
@@ -199,6 +196,7 @@
             }
         };
     };
+    document.write('<script type="text/javascript" src="_include/util.js"></script>');
     document.write('<script type="text/javascript" src="_include/filter.js"></script>');
     document.write('<script type="text/javascript" src="_include/index.controls.js"></script>');
 }());

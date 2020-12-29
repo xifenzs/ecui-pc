@@ -1,4 +1,4 @@
-(function () {
+(function() {
     /*定义etpl过滤器
      *
      *addFilter参数
@@ -24,21 +24,25 @@
         return value || '--';
     });
     // 数字 保留两位小数，加千分位
-    etpl.addFilter('numberFormat', function (num) {
-        if(num === '' || num.length<1 || num === '--') {
+    etpl.addFilter('numberFormat', function(num) {
+        if (num === '' || num.length < 1 || num === '--') {
             return '--';
         }
         num = Number(num);
-        num = String(num.toFixed(2));      
-        var re = /(-?\d+)(\d{3})/;      
-        while(re.test(num)) {  
-            num = num.replace(re,"$1,$2");  
+        num = String(num.toFixed(2));
+        var re = /(-?\d+)(\d{3})/;
+        while (re.test(num)) {
+            num = num.replace(re, "$1,$2");
         }
-        return num;  
+        return num;
     });
-    etpl.addFilter('parseBr', function (value) {
+    etpl.addFilter('parseBr', function(value) {
         var value = value.replace(/\n|\\n/g, '<br/>');
         return value || '--';;
+    });
+
+    etpl.addFilter('toThousands', function(value) {
+        return yiche.util.getToThousands(value);
     });
     /* 自定义etpl过滤器 - end */
 })();

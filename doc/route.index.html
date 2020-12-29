@@ -1,0 +1,49 @@
+
+<!-- target:docTarget -->
+<div class="page-container">
+    <form name="docForm">
+        <div class="page-query">
+    
+        </div>
+    </form>
+    <div class="page-list-session" id="table_view">
+    </div>
+</div>
+
+<!-- target: docTableTarget -->
+<!-- if: ${docTable.total} && ${docTable.total} > 0 -->
+<div ui="type:table;headFloat:0;">
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 120px;">预览</th>
+                <th style="width: 100px;">创意ID</th>
+                <th style="width: 120px;">创意名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- for: ${docTable.list} as ${item}, ${index} -->
+            <tr>
+                <td style="width: 120px;">
+                    <span class="word-clamp-2" title="${item.name}">${item.name}</span>
+                </td>
+                <td style="width: 100px;">
+                    <span class="word-clamp-2" title="${item.campaignId}">${item.campaignId}</span>
+                </td>
+                <td style="width: 120px;">
+                    <span class="word-clamp-2" title="${item.adId}">${item.adId}</span>
+                </td>
+            </tr>
+            <!-- /for -->
+        </tbody>
+    </table>
+</div>
+<div class="pagination-container" ui="type:frd.Pagination;total:${docTable.total};pageSize:${pageSize};pageNo:${pageNo};"></div>
+<!-- else -->
+<div class="no-result">
+    <img class="empty-img" src="images/empty@2x.png" alt="" />
+    <p>未找到相关数据</p>
+</div>
+<!-- /if -->
+
+

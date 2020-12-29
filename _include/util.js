@@ -140,6 +140,87 @@
                 }
             }
             return null;
+        },
+        refreshMuneSelectedStatus: function(navId) {
+            const nav = ecui.get(navId);
+            nav && nav.refreshNavStatus();
+        },
+        getToThousands: function(value) {
+            if (value) {
+                if (value.indexOf('.') == -1) {
+                    return value.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+                }
+                var intSum = value
+                    .substring(0, value.indexOf('.'))
+                    .replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+                var dot = value.substring(value.length, value.indexOf('.'));
+                if (dot.length > 3) {
+                    dot = dot.substring(dot.indexOf('.'), 3);
+                }
+                var ret = intSum + dot;
+                return ret;
+            }
+            return '';
+        },
+        findchildrenRouteAndCall: function(control) {
+            const currentRoute = ecui.esr.findRoute(control);
+            const children = currentRoute.children;
+            if (children.__proto__ === Array.prototype && children.length > 0) {
+                ecui.esr.callRoute(children[0] + '~pageNum=1~pageNo=1', true);
+            } else if (typeof(children) == 'string' && children.length > 0) {
+                ecui.esr.callRoute(children + '~pageNum=1~pageNo=1', true);
+            } else {
+
+            }
+        },
+        getTodayTime: function() {
+            let value = new Date(new Date().getTime() - 0 * 24 * 60 * 60 * 1000);
+            return value.getFullYear() +
+                '-' +
+                ('0' + (value.getMonth() + 1)).slice(-2) +
+                '-' +
+                ('0' + value.getDate()).slice(-2);
+        },
+        setSessionStorage: function(key, value) {
+            const varHeader = yiche.info.STORAGE_HEADER + key;
+            window.sessionStorage.setItem(varHeader, JSON.stringify(value));
+        },
+        getSessionStorage: function(key) {
+            const varHeader = yiche.info.STORAGE_HEADER + key;
+            return JSON.parse(window.sessionStorage.getItem(varHeader)) || {};
+        },
+        removeSessionStorage: function(key) {
+            const varHeader = yiche.info.STORAGE_HEADER + key;
+            window.sessionStorage.removeItem(varHeader);
+        },
+        clearSessionStorage: function() {
+            window.sessionStorage.clear();
         }
+    };
+
+    Date.prototype.pattern = function(fmt) {
+        var o = {
+            'M+': this.getMonth() + 1, //月份
+            'd+': this.getDate(), //日
+            'h+': this.getHours() % 12 == 0 ? 12 : this.getHours() % 12, //小时
+            'H+': this.getHours(), //小时
+            'm+': this.getMinutes(), //分
+            's+': this.getSeconds(), //秒
+            'q+': Math.floor((this.getMonth() + 3) / 3), //季度
+            'S': this.getMilliseconds() //毫秒
+        };
+        var week = ['日', '一', '二', '三', '四', '五', '六'];
+        if (/(y+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        if (/(E+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? '星期' : '周') : '') + week[this.getDay()]);
+        }
+        for (var k in o) {
+            if (new RegExp('(' + k + ')').test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
+            }
+        }
+        return fmt;
     };
 }());

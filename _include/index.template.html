@@ -4,9 +4,9 @@
         <div class="content-header-left">
             <div class="logo-wrap">
                 <img src="images/logo2x.png" alt="">
-                <span>效果DSP</span>
+                <span>${yiche.info.PROJECT_NAME}</span>
             </div>
-            <div class="nav-wrap" id="nav_bar" ui="type:yiche.ui.CustomNavs;">
+            <div class="nav-wrap" id="nav_bar" ui="type:yiche.ui.CustomNavs;id:navMenu">
                 <!-- for: ${GLOBLE_ROUTE_LISTS} as ${item} -->
                 <!-- if: ${item.children} && ${item.children.length} > 0 &&  ${item.show} -->
                 <li class="nav-item" ui="type:@CustomNavsParent;navItem:&{item}">
@@ -37,13 +37,13 @@
                 <!-- /for -->
             </div>
         </div>
-        <div class="content-header-right user-exit">
+        <div class="content-header-right user-exit ui-hide">
             <!-- use: userLogooutTarget(userName=${GLOBLE_USER_INFO.userName}) -->
         </div>
     </div>
     <div class="layout-crumbs">
         <div class="crumbs-left"></div>
-        <div class="crumbs-right">
+        <div class="crumbs-right ui-hide">
             <!-- use: userLogooutTarget(userName=${GLOBLE_USER_INFO.userName}) -->
         </div>
     </div>
@@ -57,6 +57,12 @@
 <div id="dialogContainer_2"></div>
 <div class="loading-before"></div>
 <div class="loading-after"></div>
+<div class="preview-session ui-hide" id="preview_session_handle">
+    <div class="close" ui="type:yiche.ui.PreviewHide"></div>
+    <div class="session-main">
+        <div class="swiper"></div>
+    </div>
+</div>
 
 
 <!-- target:userLogooutTarget -->

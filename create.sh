@@ -114,7 +114,8 @@ function create() {
 
         jsStr=${template%%\/\*\*\*route.js-end\*\*\*\/*}
         jsStr=${jsStr##*/\*\*\*route.js-begin\*\*\*/}
-        jsStr=${jsStr//\{route\}/$module} 
+        jsStr=${jsStr//\{route\}/$routeName} 
+        jsStr=${jsStr//\{target\}/$module} 
         # $jsStr 加上引号，可以在输出到文件时保留换行符
         echo "$jsStr" >> $module/route.$routeName.js
 

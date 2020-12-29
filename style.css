@@ -199,19 +199,6 @@ body {
 .ui-label {
     cursor: pointer;
 }
-.ui-loading .loading-before {
-    display: block;
-    position: fixed;
-    width: px2rem(180px);
-    height: px2rem(180px);
-    top: 50%;
-    left: 50%;
-    margin-left: -px2rem(90px);
-    margin-top: -px2rem(90px);
-    border-radius: px2rem(90px);
-    background: #fff;
-    z-index: 64016;
-}
 .ui-loading .loading-after {
     display: block;
     position: fixed;
@@ -220,7 +207,7 @@ body {
     z-index: 64016;
     top: 0;
     left: 0;
-    background: url('images/base/loading.gif') center center no-repeat;
+    background: rgba(0, 0, 0, 0.1) url('images/base/loading.gif') center center no-repeat;
     background-size: auto auto;
 }
 /*日期*/
