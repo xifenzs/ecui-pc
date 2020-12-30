@@ -173,8 +173,8 @@
 
             }
         },
-        getTodayTime: function() {
-            let value = new Date(new Date().getTime() - 0 * 24 * 60 * 60 * 1000);
+        getCustomTime: function(diffNum) {
+            let value = new Date(new Date().getTime() - diffNum * 24 * 60 * 60 * 1000);
             return value.getFullYear() +
                 '-' +
                 ('0' + (value.getMonth() + 1)).slice(-2) +

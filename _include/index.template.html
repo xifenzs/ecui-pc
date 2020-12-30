@@ -10,6 +10,9 @@
                 <!-- for: ${GLOBLE_ROUTE_LISTS} as ${item} -->
                 <!-- if: ${item.children} && ${item.children.length} > 0 &&  ${item.show} -->
                 <li class="nav-item" ui="type:@CustomNavsParent;navItem:&{item}">
+                    <!-- if: ${item.icon} -->
+                    <span class="icon ${item.icon}"></span>
+                    <!-- /if -->
                     <span class="font-14">${item.name}</span>
                     <div class="nav-item-bar"></div>
                     <ul class="nav-child-wrap">
@@ -17,6 +20,9 @@
                         <!-- if: ${cItem.show} -->
                         <li class="child-item" ui="type:@CustomNavsChild;navItem:&{cItem}">
                             <a class="c-a" href="#${cItem.route}">
+                                <!-- if: ${cItem.icon} -->
+                                <span class="icon ${cItem.icon}"></span>
+                                <!-- /if -->
                                 <span class="font-14">${cItem.name}</span>
                             </a>
                         </li>
@@ -28,6 +34,9 @@
                 <!-- if: ${item.show} -->
                 <li class="nav-item" ui="type:@CustomNavsParent;navItem:&{item}">
                     <a class="p-a" href="#${item.route}">
+                        <!-- if: ${item.icon} -->
+                        <span class="icon ${item.icon}"></span>
+                        <!-- /if -->
                         <span>${item.name}</span>
                         <div class="nav-item-bar"></div>
                     </a>

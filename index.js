@@ -169,6 +169,7 @@
                     name: '文档',
                     route: '/doc/index',
                     show: true,
+                    icon: 'icon-doc',
                     children: []
                 }];
                 // 汇总路由
