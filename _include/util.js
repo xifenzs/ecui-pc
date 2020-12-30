@@ -165,8 +165,14 @@
         findchildrenRouteAndCall: function(control) {
             const currentRoute = ecui.esr.findRoute(control);
             const children = currentRoute.children;
+            if (!children) {
+                console.warn('该控件只适用在列表筛选数据的地方');
+                return;
+            }
             if (children.__proto__ === Array.prototype && children.length > 0) {
-                ecui.esr.callRoute(children[0] + '~pageNum=1~pageNo=1', true);
+                children.forEach(item => {
+                    ecui.esr.callRoute(item + '~pageNum=1~pageNo=1', true);
+                });
             } else if (typeof(children) == 'string' && children.length > 0) {
                 ecui.esr.callRoute(children + '~pageNum=1~pageNo=1', true);
             } else {

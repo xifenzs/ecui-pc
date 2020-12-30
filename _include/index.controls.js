@@ -199,6 +199,69 @@
                 ecui.dom.addClass(elPreview, 'ui-hide');
                 elPreview.querySelector('.swiper').innerHTML = '';
             }
+        }),
+        // 点击展开显示子元素
+        CustomToggle: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                ecui.ui.Control.call(this, el, options);
+                this._oRowData = options.data;
+                this._bVisible = false;
+            }, {
+                onclick: function() {
+                    this.asyncLoadChild();
+                    this.handleToggle();
+                },
+                // 展开 收起
+                handleToggle: function() {
+                    let parentEl = ecui.dom.parent(this.getMain());
+                    if (!ecui.dom.hasClass(parentEl, 'ec-custom-toggle-wrap')) {
+                        return;
+                    }
+                    if (this._bVisible) {
+                        ecui.dom.removeClass(parentEl, 'ec-custom-toggle-wrap-show');
+                    } else {
+                        ecui.dom.addClass(parentEl, 'ec-custom-toggle-wrap-show');
+                    }
+                    this._bVisible = !this._bVisible;
+                },
+                // 子元素相关操作
+                asyncLoadChild: function() {
+
+                }
+            }
+        ),
+        // 下拉
+        CustomSelect: ecui.inherits(
+            ecui.ui.Select,
+            function(el, options) {
+                ecui.ui.Select.call(this, el, options)
+            }, {
+                onchange: function(evt) {
+                    if (!this.getValue()) {
+                        return;
+                    }
+                    yiche.util.findchildrenRouteAndCall(this);
+                }
+            }
+        ),
+        // 下拉搜索
+        CustomCombox: ecui.inherits(ecui.ui.Combox, {
+            onchange: function() {
+                if (!this.getValue()) {
+                    return;
+                }
+                yiche.util.findchildrenRouteAndCall(this);
+            }
+        }),
+
+        // 日期范围筛选
+        CustomTimers: ecui.inherits(frd.RangeSelectDate, {
+            onchange: function() {
+                this.setValue(this._uRangeCalendar.getSelectDates());
+                this._uRangeCalendar.hide();
+                yiche.util.findchildrenRouteAndCall(this);
+            }
         })
     };
 }());

@@ -1,24 +1,94 @@
 <!-- target:docTarget -->
 <div class="page-container">
-    <form name="docForm">
-        <div class="page-query">
-            <div class="ec-row">
-                <div class="ec-col col-24"></div>
-            </div>
-            <div class="ec-row">
-                <div class="ec-col col-12"></div>
-            </div>
-            <div class="ec-row">
-                <div class="ec-col col-8"></div>
-            </div>
-            <div class="ec-row">
-                <div class="ec-col col-6"></div>
-            </div>
-            <div class="ec-row">
-                <div class="ec-col col-4"></div>
+    <h1>栅格布局</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-24">
+            <div class="ec-bg-purple-dark" style="height: 40px;"></div>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-12">
+            <div class="ec-bg-purple" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-12">
+            <div class="bg-purple-light" style="height: 40px;"></div>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-8">
+            <div class="ec-bg-purple" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-8">
+            <div class="bg-purple-light" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-8">
+            <div class="ec-bg-purple" style="height: 40px;"></div>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-6">
+            <div class="bg-purple-light" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-6">
+            <div class="ec-bg-purple" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-6">
+            <div class="bg-purple-light" style="height: 40px;"></div>
+        </div>
+        <div class="ec-col col-6">
+            <div class="ec-bg-purple" style="height: 40px;"></div>
+        </div>
+    </div>
+
+    <h1>点击展开收起</h1>
+    <div class="ec-custom-toggle-wrap">
+        <div class="ec-custom-toggle" ui="type:yiche.ui.CustomToggle;">点击</div>
+        <div class="ec-custom-toggle-body code-html">
+            <div>
+                内容
             </div>
         </div>
-    </form>
-    <div class="page-list-session" id="table_view">
+    </div>
+
+    <h1>输入搜索</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomNumberTexts;decimal:0;trim:true;placeholder:请输入数字;name:;"></div>
+        </div>
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomTexts;trim:true;placeholder:不限制输入内容;name:;checkRule:false;value:;"></div>
+        </div>
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomTexts;trim:true;placeholder:请输入字母和数字;name:;checkRule:true;value:;"></div>
+        </div>
+    </div>
+
+    <h1>下拉搜索</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomSelect;placeholder:普通下拉;name:;value:;">
+                <div ui="value:1;" title="全部尺寸">全部创意图片尺寸1</div>
+                <div ui="value:2;" title="全部尺寸">全部创意图片尺寸2</div>
+            </div>
+        </div>
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomCombox;placeholder:请选择下拉搜索;name:;value:;">
+                <div ui="value:-1;" title="全部车型">全部车型</div>
+            </div>
+        </div>
+    </div>
+
+
+    <h1>日期范围</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomTimers;startName:start;endName:end;startValue:${tableParams.start};endValue:${tableParams.end};">
+            </div>
+        </div>
+        <div class="ec-col col-8">
+            <div ui="type:yiche.ui.CustomCombox;placeholder:请选择下拉搜索;name:;value:;">
+                <div ui="value:-1;" title="全部车型">全部车型</div>
+            </div>
+        </div>
     </div>
 </div>
