@@ -262,6 +262,56 @@
                 this._uRangeCalendar.hide();
                 yiche.util.findchildrenRouteAndCall(this);
             }
-        })
+        }),
+
+        // 编辑输入
+        CustomInputTexts: ecui.inherits(
+            ecui.ui.Text,
+            'custom-text',
+            function(el, options) {
+                ecui.ui.Text.call(this, el, options);
+                this.oRules = options.rules;
+                var clearEl = ecui.dom.create('SPAN', {
+                    className: 'clear-icon'
+                });
+                el.appendChild(clearEl);
+                this._uClear = ecui.$fastCreate(this.ClearValue, clearEl, this, {});
+                this._cParentEl = ecui.dom.parent(el);
+            }, {
+                ClearValue: ecui.inherits(ecui.ui.Control, {
+                    onclick: function() {
+                        this.getParent().setValue('');
+                    }
+                }),
+                handleCheck: function() {
+                    if (!this.oRules) {
+                        return;
+                    }
+                    const { message, reg } = this.oRules;
+                    let regexp = new RegExp(reg);
+                    let value = this.getValue();
+                    if (!value.match(regexp)) {
+                        let errorInfoEl = this._cParentEl.querySelector('.error-info');
+                        if (errorInfoEl) {
+                            errorInfoEl.innerHTML = message;
+                        }
+                        ecui.dispatchEvent(this, 'error');
+                        return;
+                    }
+                    if (value && this._cParentEl) {
+                        ecui.dom.removeClass(this._cParentEl, 'item-error');
+                    }
+                },
+                onblur: function() {
+                    this.handleCheck();
+                },
+                onerror: function() {
+                    if (!this._cParentEl) {
+                        return;
+                    }
+                    ecui.dom.addClass(this._cParentEl, 'item-error');
+                }
+            }
+        ),
     };
 }());
