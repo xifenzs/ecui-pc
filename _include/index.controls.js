@@ -120,9 +120,10 @@
             }, {
                 $input: function(event) {
                     ecui.ui.Text.prototype.$input.call(this, event);
-                    var value = this.getValue();
+                    let value = this.getValue();
                     if (this._bCheckRule) {
-                        if (/^[0-9a-zA-Z]+$/.test(value)) {
+                        let regexp = new RegExp(this._bCheckRule);
+                        if (value.match(regexp)) {
                             this._sLastValue = value;
                             return;
                         } else {
