@@ -294,13 +294,14 @@ body {
     border-top: 1px solid #e6e6e6;
 }
 .frd-range-date{
-    width: 230px;
+    width: 100%;
+    min-width: 200px;
     height: 32px;
     margin-bottom: 20px;
     text-align: left;
     padding-right: 40px;
     line-height: 32px;
-    border: 1px solid #EDEFF2;
+    border: 1px solid #dee1e5;
     border-radius: 2px;
     background: #fff url(images/calendar/date-icon.png) no-repeat calc(~'100% - 10px') center;
     background-size: 14px 14px;
@@ -386,7 +387,8 @@ body {
 
 .custom-search-text {
     box-sizing: border-box;
-    width: 240px;
+    width: 100%;
+    min-width: 200px;
     height: 36px;
     display: flex;
     align-items: center;
@@ -438,7 +440,8 @@ body {
 
 .ui-combox, .ui-select {
     box-sizing: border-box;
-    width: 240px;
+    width: 100%;
+    min-width: 200px;
     height: 36px;
     text-align: left;
     font-size: 12px;
@@ -485,5 +488,49 @@ body {
         line-height: 34px;
         padding: 0 4px;
         box-sizing: border-box;
+    }
+}
+
+
+.ec-left-right-view{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    .width-fixed{
+        width: 100px;
+    }
+
+    .width-auto{
+        flex: 1;
+    }
+}
+
+.ec-label {
+    width: 100%;
+    height: 100%;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #67779C;
+    letter-spacing: 0;
+    text-align: left;
+    box-sizing: border-box;
+    padding: 4px 6px;
+
+    &.text-center {
+        text-align: center;
+    }
+
+    &.text-right {
+        text-align: right;
+    }
+
+    &.ec-required {
+        &:before{
+            content: "*";
+            color: red;
+            display: inline-block;
+            margin-right: 6px;
+        }
     }
 }
