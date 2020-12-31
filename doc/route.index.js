@@ -28,7 +28,7 @@
             context.pixelLists = context.pixelLists || [];
             // 输入校验规则
             context.inputRules = {
-                message: '年龄不能为空',
+                message: '颜色不能为空',
                 reg: '^[a-fA-F0-9]{6,6}$'
             };
         },
