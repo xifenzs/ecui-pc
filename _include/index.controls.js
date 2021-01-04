@@ -285,7 +285,8 @@
                     }
                 }),
                 handleCheck: function() {
-                    if (!this.oRules) {
+                    let check = this.isEditControl();
+                    if (!this.oRules || !check) {
                         return;
                     }
                     const { message, reg } = this.oRules;
@@ -307,12 +308,51 @@
                     this.handleCheck();
                 },
                 onerror: function() {
-                    if (!this._cParentEl) {
+                    let check = this.isEditControl();
+                    if (!check) {
                         return;
                     }
                     ecui.dom.addClass(this._cParentEl, 'item-error');
+                },
+                isEditControl: function() {
+                    let res = false;
+                    if (this._cParentEl) {
+                        res = ecui.dom.hasClass(this._cParentEl, 'edit-form-item');
+                    }
+                    return res;
                 }
             }
         ),
+
+        // 编辑下拉
+        CustomEditSelect: ecui.inherits(
+            ecui.ui.Select,
+            function(el, options) {
+                ecui.ui.Select.call(this, el, options);
+                this._cParentEl = ecui.dom.parent(el);
+            }, {
+                onchange: function() {
+                    let value = this.getValue(),
+                        check = this.isEditControl();
+                    if (value && check) {
+                        ecui.dom.removeClass(this._cParentEl, 'item-error');
+                    }
+                },
+                onerror: function() {
+                    let check = this.isEditControl();
+                    if (!check) {
+                        return;
+                    }
+                    ecui.dom.addClass(this._cParentEl, 'item-error');
+                },
+                isEditControl: function() {
+                    let res = false;
+                    if (this._cParentEl) {
+                        res = ecui.dom.hasClass(this._cParentEl, 'edit-form-item');
+                    }
+                    return res;
+                }
+            }
+        )
     };
 }());

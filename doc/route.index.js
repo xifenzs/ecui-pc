@@ -31,6 +31,11 @@
                 message: '颜色不能为空',
                 reg: '^[a-fA-F0-9]{6,6}$'
             };
+            // 非空输入校验
+            context.noNullRules = {
+                message: '内容不能为空',
+                reg: '.+'
+            };
         },
         onafterrender: function(context) {},
         onleave: function(context) {
