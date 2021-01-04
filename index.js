@@ -129,7 +129,7 @@
             if (yiche.info.routeLists.indexOf(toPath) === -1) {
                 window.location.href = 'errorPage.html';
             } else {
-                yiche.util.refreshMuneSelectedStatus('navMenu');
+                yiche.util.refreshTopMuneSelectedStatus('navMenu');
             }
         });
 

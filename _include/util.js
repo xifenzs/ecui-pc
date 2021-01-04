@@ -112,6 +112,15 @@
             ecui.init(container);
             return container.children[0].getControl();
         },
+        /**
+         * 获取指定元素下的所有指定控件。
+         * @public
+         *
+         * @param {string|Element} el 控件容器
+         * @param {string} UIClass 控件名称
+         *
+         * @return {Array|Control} dialog 控件
+         */
         findChildrenControl: function(el, UIClass) {
             if (!el || !UIClass) {
                 return [];
@@ -133,6 +142,15 @@
             }
             return res;
         },
+        /**
+         * 获取指定元素是否为控件。
+         * @public
+         *
+         * @param {string|Element} el 控件元素
+         * @param {string} UIClass 控件名称
+         *
+         * @return {Control} dialog 控件
+         */
         findControl: function(el, UIClass) {
             for (; el; el = ecui.dom.parent(el)) {
                 if (el.getControl && el.getControl() instanceof UIClass) {
@@ -141,10 +159,24 @@
             }
             return null;
         },
-        refreshMuneSelectedStatus: function(navId) {
+        /**
+         * 刷新顶部导航的选中状态。
+         * @public
+         *
+         * @param {string|Control} navId 控件id
+         *
+         */
+        refreshTopMuneSelectedStatus: function(navId) {
             const nav = ecui.get(navId);
             nav && nav.refreshNavStatus();
         },
+        /**
+         * 给数字添加千分位符。
+         * @public
+         *
+         * @param {string} value 所要处理的值
+         *
+         */
         getToThousands: function(value) {
             if (value) {
                 if (value.indexOf('.') == -1) {
@@ -162,6 +194,13 @@
             }
             return '';
         },
+        /**
+         * 刷新该控件对应的子路由。
+         * @public
+         *
+         * @param {string|Control} control 控件
+         *
+         */
         findchildrenRouteAndCall: function(control) {
             const currentRoute = ecui.esr.findRoute(control);
             const children = currentRoute.children;
@@ -179,26 +218,75 @@
 
             }
         },
-        getCustomTime: function(diffNum) {
-            let value = new Date(new Date().getTime() - diffNum * 24 * 60 * 60 * 1000);
+        /**
+         * 获取指定时间的相对时间。
+         * @public
+         *
+         * @param {string|Control} now 指定的时间
+         * @param {Number} dx 相差的天数  正数: 历史时间  负数:简历将来时间
+         *
+         * @return {string} 获取时间差内的时间
+         *  
+         */
+        getCustomTime: function(now, dx) {
+            let baseDay = 24 * 60 * 60 * 1000,
+                value = new Date(now.getTime() - dx * baseDay);
             return value.getFullYear() +
                 '-' +
                 ('0' + (value.getMonth() + 1)).slice(-2) +
                 '-' +
                 ('0' + value.getDate()).slice(-2);
         },
+        /**
+         * 本地存储指定名称的内容。
+         * @public
+         *
+         * @param {string} key 名称
+         * @param {any} value 内容
+         *
+         *  
+         */
         setSessionStorage: function(key, value) {
             const varHeader = yiche.info.STORAGE_HEADER + key;
             window.sessionStorage.setItem(varHeader, JSON.stringify(value));
         },
+        /**
+         * 本地获取指定名称的内容。
+         * @public
+         *
+         * @param {string} key 名称
+         *
+         *  
+         */
         getSessionStorage: function(key) {
             const varHeader = yiche.info.STORAGE_HEADER + key;
-            return JSON.parse(window.sessionStorage.getItem(varHeader)) || {};
+            let res = JSON.parse(window.sessionStorage.getItem(varHeader));
+            if (res instanceof Object) {
+                return res || {};
+            } else {
+                return res || '';
+            }
         },
+        /**
+         * 本地清除指定名称的内容。
+         * @public
+         *
+         * @param {string} key 名称
+         *
+         *  
+         */
         removeSessionStorage: function(key) {
             const varHeader = yiche.info.STORAGE_HEADER + key;
             window.sessionStorage.removeItem(varHeader);
         },
+        /**
+         * 清除本地存储的内容。
+         * @public
+         *
+         * @param {string} key 名称
+         *
+         *  
+         */
         clearSessionStorage: function() {
             window.sessionStorage.clear();
         }
