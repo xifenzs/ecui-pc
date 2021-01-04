@@ -289,7 +289,99 @@
          */
         clearSessionStorage: function() {
             window.sessionStorage.clear();
-        }
+        },
+        /**
+         * 导出Csv文件。
+         * @public
+         *
+         * @param {string} url 接口地址
+         * @param {string} params 请求参数
+         * @param {string} name 文件名称
+         *
+         *  
+         */
+        exportCsvFile: function(url, params, name) {
+            ecui.dom.addClass(document.body, 'ui-loading');
+            ecui.io.ajax(url, {
+                method: 'POST',
+                headers: ecui.esr.headers,
+                data: JSON.stringify(params),
+                onsuccess: function(res) {
+                    try {
+                        let name0 = decodeURI(name),
+                            BOM = '\uFEFF';
+                        const blob = new window.Blob([BOM + res], { type: 'text/csv' });
+                        const href = URL.createObjectURL(blob);
+                        window.URL.createObjectURL(new window.Blob(['\uFEFF' + blob]));
+                        let a = document.createElement('a');
+                        a.href = href;
+                        let newName = name0.replace(/%40/g, '@');
+                        a.download = `${newName}.csv`;
+                        a.click();
+                        URL.revokeObjectURL(href);
+                        a = null;
+                        ecui.dom.removeClass(document.body, 'ui-loading');
+                    } catch (error) {
+                        console.warn(e);
+                    }
+
+                },
+                onerror: function(xhr) {
+                    if (onerror) {
+                        ecui.dom.removeClass(document.body, 'ui-loading');
+                        onerror(xhr);
+                    }
+                }
+            });
+        },
+        post: function(url, data, onsuccess, onerror) {
+            ecui.io.ajax(url, {
+                method: 'post',
+                headers: ecui.esr.headers,
+                data: JSON.stringify(data),
+                onsuccess: function(text) {
+                    try {
+                        var data = JSON.parse(text);
+                        if (data && data.status === 401) {
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        onsuccess(data);
+                    } catch (e) {
+                        console.warn(e);
+                    }
+                },
+                onerror: function(xhr) {
+                    if (onerror) {
+                        onerror(xhr);
+                    }
+                }
+            });
+        },
+        get: function(url, onsuccess, onerror) {
+            ecui.io.ajax(url, {
+                method: 'get',
+                headers: ecui.esr.headers,
+                onsuccess: function(text) {
+                    try {
+                        var data = JSON.parse(text);
+                        if (data && data.status === 401) {
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        onsuccess(data);
+                    } catch (e) {
+                        console.warn(e);
+                    }
+                },
+                onerror: function(xhr) {
+                    if (onerror) {
+                        onerror(xhr, url);
+                    }
+                }
+            });
+        },
+
     };
 
     Date.prototype.pattern = function(fmt) {

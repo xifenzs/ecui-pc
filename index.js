@@ -108,6 +108,22 @@
         }
         return data.code;
     };
+    ecui.esr.onrequesterror = function(err) {
+        err.forEach(function(item) {
+            if (item.url) {
+                try {
+                    var errInfo = JSON.parse(item.xhr.response);
+                    ecui.globalTips(
+                        errInfo.description,
+                        'error'
+                    );
+                } catch (err) {
+                    console.warn(err);
+                }
+            }
+        });
+    };
+
 
     /**
      * esr加载完毕后执行函数
