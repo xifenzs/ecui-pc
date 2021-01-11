@@ -638,3 +638,69 @@ body {
         background-size: 114px 131px;
     }
 }
+
+.ec-btn{
+    border: 1px solid #dcdfe6;
+    border-radius: 2px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #606266;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    text-align: center;
+    display: inline-block;
+    background: #fff;
+    cursor: pointer;
+
+    .icon {
+        width: 12px;
+        height: 12px;
+        vertical-align: top;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    &.btn-type-primary {
+        color: #fff;
+        background-color: #306BFF;
+        border-color: #306BFF;
+    }
+
+    &.btn-type-link {
+        color: #306BFF;
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    &.btn-type-success {
+        color: #ffffff;
+        background-color: #67c23a;
+        border-color: #67c23a;
+    }
+
+    &.btn-type-warning {
+        color: #ffffff;
+        background-color: #e6a23c;
+        border-color: #e6a23c;
+    }
+
+    &.btn-type-danger {
+        color: #ffffff;
+        background-color: #f56c6c;
+        border-color: #f56c6c;
+    }
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    &.circle{
+        border-radius: 16px;
+    }
+
+    &.ui-disabled {
+        opacity: .3;
+        cursor: not-allowed
+    }
+}
