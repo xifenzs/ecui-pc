@@ -353,6 +353,115 @@
                     return res;
                 }
             }
+        ),
+
+        // 图表
+        Echarts: ecui.inherits(
+            ecui.ui.Control,
+            'echarts',
+            function(el, options) {
+                ecui.ui.Control.call(this, el, options);
+                this.reqDataName = options.reqDataName;
+                this.echartInfo = options.echartInfo;
+                this.contentEl = ecui.dom.create('div', { className: 'chart-content' });
+                this.emptyMaskEl = ecui.dom.create('div', { className: 'empty-echarts ui-hide', innerHTML: '' });
+                el.appendChild(this.contentEl);
+                el.appendChild(this.emptyMaskEl);
+                this.content = ecui.$fastCreate(ecui.ui.Control, this.contentEl, this);
+                this.emptyMask = ecui.$fastCreate(ecui.ui.Control, this.emptyMaskEl, this);
+
+            }, {
+                onready: function() {
+                    this.getMain().style.width = this.getWidth() + 'px';
+                    this.chart = echarts.init(this.content.getMain());
+                    if (this.echartInfo && this.echartInfo.immediate) {
+                        let echartInfo = this.echartInfo;
+                        this.render(echartInfo);
+                    }
+                    this.chart.on('legendselectchanged', function(param) {
+                        var selected = [];
+                        for (var key in param.selected) {
+                            if (param.selected[key]) {
+                                selected.push(key);
+                            }
+                        }
+                        if (selected.length < 1) {
+                            this.chart.dispatchAction({
+                                type: 'legendSelect',
+                                name: param.name
+                            });
+                        }
+                    }.bind(this));
+                },
+                isEmpty: function() {
+                    return this.emptyMask.isShow();
+                },
+                reqSuccess: function(data) {
+                    const that = this;
+                    that.chart.hideLoading();
+                    if (!that.content.isShow()) {
+                        that.emptyMask.hide();
+                        that.content.show();
+                    }
+                    try {
+                        const option = that.transfromEchartOptions(data);
+                        that.chart.setOption(option, true);
+                    } catch (error) {
+                        that.emptyMask.show();
+                        that.content.hide();
+                    }
+                },
+                // 处理 图表相关数据
+                transfromEchartOptions: function(data) {
+                    let option = {};
+                    return option;
+                },
+                reqFail: function(xhr) {
+                    var err = JSON.parse(xhr.response);
+                    ecui.globalTips(
+                        err.description,
+                        'error'
+                    );
+                    this.chart.hideLoading();
+                    if (!this.emptyMask.isShow()) {
+                        this.emptyMask.show();
+                        this.content.hide();
+                        ecui.dispatchEvent(this, 'emptyevent');
+                    }
+                    return;
+                },
+                render: function(echartInfo) {
+                    if (!this.chart) {
+                        return;
+                    }
+                    const { url, method, params, defaultOption } = echartInfo;
+                    if (echartInfo.defaultOption && JSON.stringify({}) !== JSON.stringify(echartInfo.defaultOption)) {
+                        if (!this.content.isShow()) {
+                            this.emptyMask.hide();
+                            this.content.show();
+                        }
+                        this.chart.setOption(defaultOption, true);
+                        return;
+                    }
+                    if (url && method && params) {
+                        this.chart.showLoading('default', {
+                            text: '',
+                            color: '#4466FF'
+                        });
+                        if (method === 'post') {
+                            yiche.util.post(url, params, this.reqSuccess.bind(this), this.reqFail.bind(this));
+                        } else {
+                            yiche.util.get(url, this.reqSuccess.bind(this), this.reqFail.bind(this));
+                        }
+                    }
+
+                },
+                $dispose: function() {
+                    ecui.ui.Control.prototype.$dispose.call(this);
+                    this.chart && this.chart.dispose();
+                }
+            }
         )
+
     };
 }());

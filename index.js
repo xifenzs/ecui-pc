@@ -15,7 +15,7 @@
             PROJECT_NAME: '顶部导航项目模板', // logo旁的项目名称
             STORAGE_HEADER: 'EFFECT_',
             routeLists: [], // 项目中的全部路由
-            API_BASE: '/dsp-console/console/report/'
+            API_BASE: '/dsp-console/console/report/', // 接口前缀
         }
     };
     /* 阻止 ie 按删除键会回退页面 - begin */

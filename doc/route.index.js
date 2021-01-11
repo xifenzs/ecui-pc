@@ -5,7 +5,30 @@
 
     Object.assign(
         NS.ui, {
-
+            setBarEcharts: ecui.inherits(
+                yiche.ui.Echarts,
+                function(el, options) {
+                    yiche.ui.Echarts.call(this, el, options);
+                }, {
+                    transfromEchartOptions: function(data) {
+                        return {
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                            },
+                            yAxis: {
+                                type: 'value'
+                            },
+                            series: [{
+                                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                                type: 'line',
+                                areaStyle: {}
+                            }]
+                        }
+                    }
+                }
+            )
         }
     );
 
@@ -35,6 +58,30 @@
             context.noNullRules = {
                 message: '内容不能为空',
                 reg: '.+'
+            };
+            // 图表
+            // echart 请求参数
+            context.echartReqParams = {};
+            context.echartReqInfo = {
+                url: yiche.info.API_BASE + 'filter/cmd', // 接口地址
+                method: 'post', // 接口类型
+                params: context.echartReqParams, // 请求参数数据源,
+                immediate: true, // 立即渲染
+                defaultOption: {
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: [820, 932, 901, 934, 1290, 1330, 1320],
+                        type: 'line',
+                        areaStyle: {}
+                    }]
+                }, // echart的默认配置
             };
         },
         onafterrender: function(context) {},
