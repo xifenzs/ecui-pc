@@ -461,7 +461,38 @@
                     this.chart && this.chart.dispose();
                 }
             }
-        )
+        ),
+
+        // 分页
+        Pagination: ecui.inherits(frd.Pagination,
+            function(el, options) {
+                this._nPageSizeOption = options.pageSizeOptions || [20, 50, 100];
+                frd.Pagination.call(this, el, options);
+            }, {
+                hascreatePageSize: function() {
+                    if (this._nPageSizeOption) {
+                        let sizeHtml = '';
+                        this._nPageSizeOption.forEach(item => {
+                            sizeHtml += `<div ui="value:${item}">${item}条/页</div>`;
+                        });
+                        this._ePageSize = ecui.dom.create('DIV', {
+                            className: 'page-size',
+                            innerHTML: sizeHtml
+                        });
+                    }
+                    return true;
+                },
+                Pages: ecui.inherits(
+                    frd.Pagination.prototype.Pages, {
+                        setPageInfoContent: function(pageNo, size, count, total, totalPage) {
+                            this.getParent()._uPageInfo.setContent(
+                                '共 ' + total + ' 页'
+                            );
+                        }
+                    }
+                )
+            }
+        ),
 
     };
 }());

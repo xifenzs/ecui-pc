@@ -83,6 +83,13 @@
                     }]
                 }, // echart的默认配置
             };
+            // 分页每页配置参数
+            context.paginationInfo = {
+                total: context.total || 100,
+                pageSize: context.pageSize || 20,
+                pageNo: context.pageNo || context.pageNum || 1,
+                pageSizeOptions: [10, 20, 50, 80, 100]
+            };
         },
         onafterrender: function(context) {},
         onleave: function(context) {
