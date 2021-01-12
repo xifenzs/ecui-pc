@@ -860,13 +860,19 @@ body {
            
         .frd-simulation-radio-options{
             .ui-item{
-                display: inline-block;
+                display: flex;
                 font-family: PingFangSC-Medium;
                 font-size: 14px;
                 color: #67779C;
+                align-items: center;
                 box-sizing: border-box;
                 padding: 4px 10px;
                 cursor: pointer;
+
+                .iconfont {
+                    font-size: 16px;
+                    margin-right: 6px;
+                }
 
                 &.ui-item-selected {
                     color: #409eff;
