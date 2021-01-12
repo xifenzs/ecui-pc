@@ -14,3 +14,12 @@ h1{
     background: #fafafa;
     border-radius: 5px;
 }
+
+.iconfont-html {
+    .iconfont {
+        font-size: 20px;
+    }
+    p{
+        font-size: 20px;
+    }
+}

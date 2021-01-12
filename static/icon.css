@@ -1,18 +1,18 @@
 @font-face {
-  font-family: 'icon';
-  src:  url('fonts/icon.eot?dg849m');
-  src:  url('fonts/icon.eot?dg849m#iefix') format('embedded-opentype'),
-    url('fonts/icon.ttf?dg849m') format('truetype'),
-    url('fonts/icon.woff?dg849m') format('woff'),
-    url('fonts/icon.svg?dg849m#icon') format('svg');
+  font-family: 'iconfont';
+  src:  url('fonts/iconfont.eot?652s61');
+  src:  url('fonts/iconfont.eot?652s61#iefix') format('embedded-opentype'),
+    url('fonts/iconfont.ttf?652s61') format('truetype'),
+    url('fonts/iconfont.woff?652s61') format('woff'),
+    url('fonts/iconfont.svg?652s61#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="iconfont-"], [class*=" iconfont-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icon' !important;
+  font-family: 'iconfont' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -25,36 +25,62 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-doc:before {
+.iconfont-image:before {
+  content: "\e90d";
+}
+.iconfont-images:before {
+  content: "\e90e";
+}
+.iconfont-file-text:before {
   content: "\e926";
 }
-.icon-location2:before {
+.iconfont-location:before {
   content: "\e948";
 }
-.icon-floppy-disk:before {
+.iconfont-floppy-disk:before {
   content: "\e962";
 }
-.icon-spinner:before {
+.iconfont-spinner:before {
   content: "\e97a";
 }
-.icon-search:before {
+.iconfont-search:before {
   content: "\e986";
 }
-.icon-switch:before {
+.iconfont-switch:before {
   content: "\e9b6";
 }
-.icon-list2:before {
+.iconfont-list:before {
   content: "\e9bb";
 }
-.icon-download3:before {
+.iconfont-download:before {
   content: "\e9c7";
 }
-.icon-upload3:before {
+.iconfont-upload:before {
   content: "\e9c8";
 }
-.icon-indent-increase:before {
+.iconfont-checkbox-checked:before {
+  content: "\ea52";
+}
+.iconfont-checkbox-unchecked:before {
+  content: "\ea53";
+}
+.iconfont-radio-checked:before {
+  content: "\ea54";
+}
+.iconfont-radio-unchecked:before {
+  content: "\ea56";
+}
+.iconfont-indent-increase:before {
   content: "\ea7b";
 }
-.icon-indent-decrease:before {
+.iconfont-indent-decrease:before {
   content: "\ea7c";
+}
+
+.iconfont-radio-status:before {
+  content: "\ea56";
+}
+
+.ui-item-selected .iconfont-radio-status:before {
+  content: "\ea54";
 }

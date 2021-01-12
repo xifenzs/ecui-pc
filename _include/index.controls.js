@@ -494,5 +494,23 @@
             }
         ),
 
+        // 单选
+        CustomRadio: ecui.inherits(
+            frd.SimulationRadio,
+            function(el, options) {
+                this._nRefresh = options.refreshChildRoute || false;
+                frd.SimulationRadio.call(this, el, options);
+            }, {
+                onchange: function() {
+                    if (this._nRefresh) {
+                        this.refresh();
+                    }
+                },
+                refresh: function() {
+                    yiche.util.findchildrenRouteAndCall(this);
+                }
+            }
+        )
+
     };
 }());
