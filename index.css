@@ -880,4 +880,12 @@ body {
             }
         }
     }
+
+    &.ec-radio-session-disabled{
+        .frd-simulation-radio-options{
+            .ui-item{
+                cursor: not-allowed !important;
+            }
+        }
+    }
 }
