@@ -28,7 +28,22 @@
                         }
                     }
                 }
-            )
+            ),
+            testCheckBox: ecui.inherits(yiche.ui.CustomCheckbox, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.testCheckBox)
+                },
+                handleChange: function() {
+                    let { itemLiength, list } = this.getData();
+                    let nowLen = list.length;
+                    ecui.get('checkboxAll').changeStatus(itemLiength, nowLen);
+                }
+            }),
+            CustomCheckboxSelectAll: ecui.inherits(yiche.ui.CustomCheckboxSelectAll, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.testCheckBox)
+                }
+            })
         }
     );
 
@@ -90,6 +105,23 @@
                 pageNo: context.pageNo || context.pageNum || 1,
                 pageSizeOptions: [10, 20, 50, 80, 100]
             };
+            // 复选mack数据
+            context.checkboxList = [{
+                id: '1',
+                name: '选项1',
+                checked: false,
+                disabled: false
+            }, {
+                id: '2',
+                name: '选项2',
+                checked: false,
+                disabled: false
+            }, {
+                id: '3',
+                name: '选项3',
+                checked: false,
+                disabled: false
+            }];
         },
         onafterrender: function(context) {},
         onleave: function(context) {

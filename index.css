@@ -897,3 +897,51 @@ body {
         }
     }
 }
+
+.ec-checkbox-item {
+
+    &.checkbox {
+        display: flex;
+        box-sizing: border-box;
+        padding: 4px 10px;
+        font-family: PingFangSC-Medium;
+        font-size: 14px;
+        color: #67779C;
+        align-items: center;
+        cursor: pointer;
+    
+        .iconfont {
+            font-size: 16px;
+            margin-right: 6px;
+        }
+    
+        &.ec-checkbox-item-checked{
+            color: #409eff;
+        }
+    }
+
+}
+
+.ec-checkbox-item-all {
+
+    &.checkbox {
+        display: flex;
+        box-sizing: border-box;
+        padding: 4px 10px;
+        font-family: PingFangSC-Medium;
+        font-size: 14px;
+        color: #67779C;
+        align-items: center;
+        cursor: pointer;
+    
+        .iconfont {
+            font-size: 16px;
+            margin-right: 6px;
+        }
+    
+        &.ec-checkbox-item-all-checked {
+            color: #409eff;
+        }
+    }
+      
+}

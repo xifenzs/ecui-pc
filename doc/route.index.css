@@ -23,3 +23,8 @@ h1{
         font-size: 20px;
     }
 }
+
+.ec-checkbox-session {
+    display: flex;
+    flex-wrap: wrap;
+}

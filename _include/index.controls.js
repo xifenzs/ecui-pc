@@ -510,6 +510,144 @@
                     yiche.util.findchildrenRouteAndCall(this);
                 }
             }
+        ),
+
+        // 复选
+        CustomCheckbox: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                this._oItemData = options.itemData;
+                this._sScopedName = options.scopedName;
+                ecui.ui.Control.call(this, el, options);
+            }, {
+                onready: function() {
+                    let { checked } = this._oItemData;
+                    if (checked) {
+                        this.alterStatus('+checked');
+                    }
+                },
+                onclick: function() {
+                    this.changeStatus();
+                    this.handleChange && this.handleChange();
+                },
+                changeStatus: function() {
+                    let { checked } = this._oItemData;
+                    if (checked) {
+                        this.alterStatus('-checked');
+                    } else {
+                        this.alterStatus('+checked');
+                    }
+                    this._oItemData.checked = !this._oItemData.checked;
+                },
+                getData: function() {
+                    if (!this._sScopedName) {
+                        return {
+                            itemLiength: '',
+                            list: []
+                        };
+                    }
+                    let scopedEl = ecui.$(this._sScopedName),
+                        checkboxList = this.findChildrenControl(scopedEl),
+                        len = checkboxList.length,
+                        res = [];
+                    if (len > 0) {
+                        checkboxList.forEach(item => {
+                            if (item._oItemData.checked) {
+                                res.push(item._oItemData);
+                            }
+                        })
+                    }
+                    return {
+                        itemLiength: len,
+                        list: res
+                    }
+                },
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, yiche.ui.CustomCheckbox);
+                },
+                handleChange: null
+            }
+        ),
+        CustomCheckboxSelectAll: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                this._sScopedName = options.scopedName;
+                ecui.ui.Control.call(this, el, options);
+            }, {
+                onclick: function() {
+                    let { len, nowLen } = this.getData();
+                    if (len !== nowLen) {
+                        this.alterStatus('-part');
+                        this.alterStatus('+checked');
+                        this.setData(true);
+                    } else {
+                        this.alterStatus('-checked');
+                        this.alterStatus('-part');
+                        this.setData(false);
+                    }
+                },
+                changeStatus: function(len, nowLen) {
+                    // 全选
+                    if (len === nowLen) {
+                        this.alterStatus('-part');
+                        this.alterStatus('+checked');
+                    } else if (nowLen < len && nowLen > 0) {
+                        // 半选
+                        this.alterStatus('-checked');
+                        this.alterStatus('+part');
+                    } else {
+                        // 未选
+                        this.alterStatus('-checked');
+                        this.alterStatus('-part');
+                    }
+                },
+                getData: function() {
+                    let scopedEl = ecui.$(this._sScopedName),
+                        checkBoxControls = this.findChildrenControl(scopedEl),
+                        len = checkBoxControls.length,
+                        res = [];
+                    if (len > 0) {
+                        checkBoxControls.forEach(item => {
+                            if (item._oItemData.checked) {
+                                res.push(item._oItemData);
+                            }
+                        })
+                    }
+                    let nowLen = res.length;
+                    return {
+                        len,
+                        nowLen
+                    }
+                },
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, yiche.ui.CustomCheckbox);
+                },
+                setData: function(flag) {
+                    let scopedEl = ecui.$(this._sScopedName),
+                        checkBoxControls = this.findChildrenControl(scopedEl),
+                        len = checkBoxControls.length;
+                    if (len > 0) {
+                        checkBoxControls.forEach(item => {
+                            if (flag) {
+                                if (!item._oItemData.checked) {
+                                    ecui.dispatchEvent(item, 'click');
+                                }
+                            } else {
+                                if (item._oItemData.checked) {
+                                    ecui.dispatchEvent(item, 'click');
+                                }
+                            }
+                        })
+                    }
+                },
+                onready: function() {
+                    let timer = setTimeout(() => {
+                        let { len, nowLen } = this.getData();
+                        this.changeStatus(len, nowLen);
+                        clearTimeout(timer);
+                    }, 0);
+                }
+            }
         )
 
     };

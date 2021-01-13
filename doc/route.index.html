@@ -389,6 +389,20 @@
     </div>
 
     <h1>复选</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-8">
+            <div class="ec-checkbox-session" id="ec_checkbox_session_1">
+                <!-- for: ${checkboxList} as ${item} -->
+                <div class="ec-checkbox-item checkbox" ui="type:NS.testCheckBox;itemData:&{item};scopedName:ec_checkbox_session_1;">
+                    <i class="iconfont iconfont-checkbox-status"></i> ${item.name}
+                </div>
+                <!-- /for -->
+            </div>
+            <div class="ec-checkbox-item-all checkbox" ui="type:NS.CustomCheckboxSelectAll;scopedName:ec_checkbox_session_1;id:checkboxAll">
+                <i class="iconfont iconfont-checkbox-status"></i> 全选
+            </div>
+        </div>
+    </div>
 
     <h1>上传</h1>
 

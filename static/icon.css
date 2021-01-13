@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';
-  src:  url('fonts/iconfont.eot?652s61');
-  src:  url('fonts/iconfont.eot?652s61#iefix') format('embedded-opentype'),
-    url('fonts/iconfont.ttf?652s61') format('truetype'),
-    url('fonts/iconfont.woff?652s61') format('woff'),
-    url('fonts/iconfont.svg?652s61#iconfont') format('svg');
+  src:  url('fonts/iconfont.eot?us8hbf');
+  src:  url('fonts/iconfont.eot?us8hbf#iefix') format('embedded-opentype'),
+    url('fonts/iconfont.ttf?us8hbf') format('truetype'),
+    url('fonts/iconfont.woff?us8hbf') format('woff'),
+    url('fonts/iconfont.svg?us8hbf#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.iconfont-checkbox-part:before {
+  content: "\e900";
+}
 .iconfont-image:before {
   content: "\e90d";
 }
@@ -76,11 +79,28 @@
 .iconfont-indent-decrease:before {
   content: "\ea7c";
 }
-
 .iconfont-radio-status:before {
   content: "\ea56";
 }
 
 .ui-item-selected .iconfont-radio-status:before {
   content: "\ea54";
+}
+
+.iconfont-checkbox-status:before {
+  content: "\ea53";
+}
+
+.ec-checkbox-item-checked .iconfont-checkbox-status:before {
+  content: "\ea52";
+}
+
+.ec-checkbox-item-all-checked .iconfont-checkbox-status:before {
+  content: "\ea52";
+}
+
+.ec-checkbox-item-all-part .iconfont-checkbox-status:before {
+  content: "\e900";
+  font-size: 20px;
+  color: #409eff;
 }
