@@ -8,15 +8,19 @@ body {
     background: rgb(242, 245, 250);
 }
 
-.ui-custom-select-options{
+.ui-custom-select-options {
     padding: 0;
 }
 
-.ec-bg-purple-dark{
+.ui-disabled {
+    cursor: not-allowed !important;
+}
+
+.ec-bg-purple-dark {
     background: #99a9bf;
 }
 
-.ec-bg-purple{
+.ec-bg-purple {
     background: #d3dce6;
 }
 
@@ -24,7 +28,7 @@ body {
     background: #e5e9f2;
 }
 
-.ec-mb-20{
+.ec-mb-20 {
     margin-bottom: 20px !important;
 }
 
@@ -260,11 +264,11 @@ body {
             -moz-box-shadow: 0 4px 6px 0 #e2e2e2;
             box-shadow: 0 4px 6px 0 #e2e2e2;
 
-            .page-container{
+            .page-container {
                 box-sizing: border-box;
                 padding: 0;
 
-                .page-query{
+                .page-query {
                     box-sizing: border-box;
                 }
             }
@@ -297,7 +301,8 @@ body {
     width: 602px;
     border-top: 1px solid #e6e6e6;
 }
-.frd-range-date{
+
+.frd-range-date {
     width: 100%;
     min-width: 200px;
     height: 32px;
@@ -316,7 +321,7 @@ body {
     }
 }
 
-.ec-row{
+.ec-row {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -354,11 +359,11 @@ body {
 }
 
 
-.ec-custom-toggle-wrap{
+.ec-custom-toggle-wrap {
     box-sizing: border-box;
     position: relative;
 
-    .ec-custom-toggle{
+    .ec-custom-toggle {
         box-sizing: border-box;
         font-size: 14px;
         height: 34px;
@@ -366,7 +371,7 @@ body {
         cursor: pointer;
     }
 
-    .ec-custom-toggle-body{
+    .ec-custom-toggle-body {
         position: relative;
         box-sizing: border-box;
         height: 0px;
@@ -374,11 +379,12 @@ body {
         overflow: hidden;
     }
 
-    &.ec-custom-toggle-wrap-show{
-        .ec-custom-toggle-body{
+    &.ec-custom-toggle-wrap-show {
+        .ec-custom-toggle-body {
             height: 200px;
             transition: height 0.3s;
-            &>div{
+
+            &>div {
                 box-sizing: border-box;
                 width: 100%;
                 height: 100%;
@@ -442,7 +448,8 @@ body {
 
 
 
-.ui-combox, .ui-select {
+.ui-combox,
+.ui-select {
     box-sizing: border-box;
     width: 100%;
     min-width: 200px;
@@ -460,7 +467,7 @@ body {
         }
     }
 
-    .ui-select-text{
+    .ui-select-text {
         height: 34px;
         line-height: 34px;
     }
@@ -471,13 +478,14 @@ body {
     }
 }
 
-.ui-select{
+.ui-select {
     background: #ffffff url(images/ecui/arrow.png) no-repeat calc(~'100% - 10px') center;
 }
 
-.ui-select-options{
+.ui-select-options {
     box-sizing: border-box;
-    .ui-select-item{
+
+    .ui-select-item {
         height: 34px;
         line-height: 34px;
         padding: 0 4px;
@@ -485,9 +493,10 @@ body {
     }
 }
 
-.ui-combox-options{
+.ui-combox-options {
     box-sizing: border-box;
-    .ui-item{
+
+    .ui-item {
         height: 34px;
         line-height: 34px;
         padding: 0 4px;
@@ -496,16 +505,16 @@ body {
 }
 
 
-.ec-left-right-view{
+.ec-left-right-view {
     display: flex;
     align-items: center;
     box-sizing: border-box;
 
-    .width-fixed{
+    .width-fixed {
         width: 100px;
     }
 
-    .width-auto{
+    .width-auto {
         flex: 1;
     }
 }
@@ -530,7 +539,7 @@ body {
     }
 
     &.ec-required {
-        &:before{
+        &:before {
             content: "*";
             color: red;
             display: inline-block;
@@ -539,7 +548,7 @@ body {
     }
 }
 
-.edit-form-item{
+.edit-form-item {
     position: relative;
     box-sizing: border-box;
     min-height: 60px;
@@ -556,7 +565,7 @@ body {
         background: #ffffff;
         border: 1px solid #dee1e5;
         border-radius: 2px;
-    
+
         input {
             height: 100%;
             flex: 1;
@@ -566,7 +575,7 @@ body {
             display: inline-block;
             font-size: 12px;
         }
-    
+
         .clear-icon {
             height: 100%;
             width: 30px;
@@ -577,14 +586,14 @@ body {
             background-size: 16px 16px;
             display: none;
         }
-    
+
         &.custom-text-hover {
             .clear-icon {
                 display: block;
             }
         }
 
-        &.custom-text-error{
+        &.custom-text-error {
             border-color: #d0021b;
             background-color: #ffead6;
         }
@@ -643,7 +652,7 @@ body {
     }
 }
 
-.ec-btn{
+.ec-btn {
     border: 1px solid #dcdfe6;
     border-radius: 2px;
     font-family: PingFangSC-Regular;
@@ -700,13 +709,12 @@ body {
         opacity: 0.6;
     }
 
-    &.circle{
+    &.circle {
         border-radius: 16px;
     }
 
     &.ui-disabled {
-        opacity: .3;
-        cursor: not-allowed
+        opacity: 0.3;
     }
 }
 
@@ -827,10 +835,10 @@ body {
 
 .ec-radio-session {
 
-    &.primary{
-        .frd-simulation-radio-options{
+    &.primary {
+        .frd-simulation-radio-options {
 
-            .ui-item{
+            .ui-item {
                 display: inline-block;
                 font-family: PingFangSC-Medium;
                 font-size: 14px;
@@ -840,11 +848,11 @@ body {
                 border: 1px solid #67779C;
                 border-right: 0px;
                 cursor: pointer;
-    
-                &:last-child{
+
+                &:last-child {
                     border-right: 1px solid #67779C;
                 }
-    
+
                 &.ui-item-selected {
                     color: #FFFFFF;
                     background: #409eff;
@@ -854,12 +862,12 @@ body {
         }
     }
 
-    
 
-    &.radio{
-           
-        .frd-simulation-radio-options{
-            .ui-item{
+
+    &.radio {
+
+        .frd-simulation-radio-options {
+            .ui-item {
                 display: flex;
                 font-family: PingFangSC-Medium;
                 font-size: 14px;
@@ -881,9 +889,9 @@ body {
         }
     }
 
-    &.ec-radio-session-disabled{
-        .frd-simulation-radio-options{
-            .ui-item{
+    &.ec-radio-session-disabled {
+        .frd-simulation-radio-options {
+            .ui-item {
                 cursor: not-allowed !important;
             }
         }
