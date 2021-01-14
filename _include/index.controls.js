@@ -542,7 +542,7 @@
                 getData: function() {
                     if (!this._sScopedName) {
                         return {
-                            itemLiength: '',
+                            itemLength: '',
                             list: []
                         };
                     }
@@ -558,7 +558,7 @@
                         })
                     }
                     return {
-                        itemLiength: len,
+                        itemLength: len,
                         list: res
                     }
                 },
@@ -649,6 +649,5 @@
                 }
             }
         )
-
     };
 }());

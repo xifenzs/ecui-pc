@@ -34,9 +34,9 @@
                     return yiche.util.findChildrenControl(el, NS.ui.testCheckBox)
                 },
                 handleChange: function() {
-                    let { itemLiength, list } = this.getData();
+                    let { itemLength, list } = this.getData();
                     let nowLen = list.length;
-                    ecui.get('checkboxAll').changeStatus(itemLiength, nowLen);
+                    ecui.get('checkboxAll').changeStatus(itemLength, nowLen);
                 }
             }),
             CustomCheckboxSelectAll: ecui.inherits(yiche.ui.CustomCheckboxSelectAll, {
