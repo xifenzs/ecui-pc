@@ -5,7 +5,7 @@
 
     Object.assign(
         NS.ui, {
-            setBarEcharts: ecui.inherits(
+            SetBarEcharts: ecui.inherits(
                 yiche.ui.Echarts,
                 function(el, options) {
                     yiche.ui.Echarts.call(this, el, options);
@@ -29,9 +29,9 @@
                     }
                 }
             ),
-            testCheckBox: ecui.inherits(yiche.ui.CustomCheckbox, {
+            CheckBox: ecui.inherits(yiche.ui.CustomCheckbox, {
                 findChildrenControl: function(el) {
-                    return yiche.util.findChildrenControl(el, NS.ui.testCheckBox)
+                    return yiche.util.findChildrenControl(el, NS.ui.CheckBox)
                 },
                 handleChange: function() {
                     let { itemLength, list } = this.getData();
@@ -41,7 +41,37 @@
             }),
             CustomCheckboxSelectAll: ecui.inherits(yiche.ui.CustomCheckboxSelectAll, {
                 findChildrenControl: function(el) {
-                    return yiche.util.findChildrenControl(el, NS.ui.testCheckBox)
+                    return yiche.util.findChildrenControl(el, NS.ui.CheckBox)
+                }
+            }),
+            BtnCheckBox: ecui.inherits(yiche.ui.CustomCheckbox, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.BtnCheckBox)
+                },
+                handleChange: function() {
+                    let { itemLength, list } = this.getData();
+                    let nowLen = list.length;
+                    ecui.get('checkboxAllBtn').changeStatus(itemLength, nowLen);
+                }
+            }),
+            BtnCustomCheckboxSelectAll: ecui.inherits(yiche.ui.CustomCheckboxSelectAll, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.BtnCheckBox)
+                }
+            }),
+            BorderCheckBox: ecui.inherits(yiche.ui.CustomCheckbox, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.BorderCheckBox)
+                },
+                handleChange: function() {
+                    let { itemLength, list } = this.getData();
+                    let nowLen = list.length;
+                    ecui.get('checkboxAllBorder').changeStatus(itemLength, nowLen);
+                }
+            }),
+            BorderCustomCheckboxSelectAll: ecui.inherits(yiche.ui.CustomCheckboxSelectAll, {
+                findChildrenControl: function(el) {
+                    return yiche.util.findChildrenControl(el, NS.ui.BorderCheckBox)
                 }
             })
         }

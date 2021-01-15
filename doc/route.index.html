@@ -187,7 +187,7 @@
     <h1>echarts 图表</h1>
     <div class="ec-row ec-mb-20">
         <div class="ec-col col-24">
-            <div style="height: 400px;" ui="type:NS.setBarEcharts;id:analyHobbyChart;echartInfo:&{echartReqInfo}"></div>
+            <div style="height: 400px;" ui="type:NS.SetBarEcharts;id:analyHobbyChart;echartInfo:&{echartReqInfo}"></div>
         </div>
     </div>
 
@@ -469,13 +469,39 @@
         <div class="ec-col col-8">
             <div class="ec-checkbox-session" id="ec_checkbox_session_1">
                 <!-- for: ${checkboxList} as ${item} -->
-                <div class="ec-checkbox-item checkbox" ui="type:NS.testCheckBox;itemData:&{item};scopedName:ec_checkbox_session_1;">
+                <div class="ec-checkbox-item checkbox" ui="type:NS.CheckBox;itemData:&{item};scopedName:ec_checkbox_session_1;">
                     <i class="iconfont iconfont-checkbox-status"></i> ${item.name}
                 </div>
                 <!-- /for -->
             </div>
             <div class="ec-checkbox-item-all checkbox" ui="type:NS.CustomCheckboxSelectAll;scopedName:ec_checkbox_session_1;id:checkboxAll">
                 <i class="iconfont iconfont-checkbox-status"></i> 全选
+            </div>
+        </div>
+
+        <div class="ec-col col-8">
+            <div class="ec-checkbox-session" id="ec_checkbox_session_2">
+                <!-- for: ${checkboxList} as ${item} -->
+                <div class="ec-checkbox-item button" ui="type:NS.BtnCheckBox;itemData:&{item};scopedName:ec_checkbox_session_2;">
+                    ${item.name}
+                </div>
+                <!-- /for -->
+            </div>
+            <div class="ec-checkbox-item-all button" style="margin-top: 10px;" ui="type:NS.BtnCustomCheckboxSelectAll;scopedName:ec_checkbox_session_2;id:checkboxAllBtn">
+                全选
+            </div>
+        </div>
+
+        <div class="ec-col col-8">
+            <div class="ec-checkbox-session" id="ec_checkbox_session_3">
+                <!-- for: ${checkboxList} as ${item} -->
+                <div class="ec-checkbox-item border" ui="type:NS.BorderCheckBox;itemData:&{item};scopedName:ec_checkbox_session_3;">
+                    ${item.name}
+                </div>
+                <!-- /for -->
+            </div>
+            <div class="ec-checkbox-item-all border" style="margin-top: 10px;" ui="type:NS.BorderCustomCheckboxSelectAll;scopedName:ec_checkbox_session_3;id:checkboxAllBorder">
+                全选
             </div>
         </div>
     </div>
