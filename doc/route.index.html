@@ -506,13 +506,59 @@
         </div>
     </div>
 
-
-
+    <h1>弹窗</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-4">
+            <div class="ec-btn btn-type-primary" ui="type:NS.OpenDialog;btnAlgin:left;">按钮左对齐</div>
+        </div>
+        <div class="ec-col col-4">
+            <div class="ec-btn btn-type-primary" ui="type:NS.OpenDialog;btnAlgin:center;">按钮居中</div>
+        </div>
+        <div class="ec-col col-4">
+            <div class="ec-btn btn-type-primary" ui="type:NS.OpenDialog;btnAlgin:right;">按钮右对齐</div>
+        </div>
+    </div>
 
 
 
 
     <h1>上传</h1>
 
-    <h1>弹窗</h1>
+
 </div>
+
+
+<!-- target:demoDialogBtnAlignLeftTarget -->
+<div ui="type:dialog" class="ec-dialog">
+    <strong>标题</strong>
+    <div class="dialog-content" id="dialog_test"></div>
+    <div class="action">
+        <div ui="type:@Cancel">取消</div>
+        <div class="ec-btn btn-type-primary">确认</div>
+    </div>
+</div>
+
+<!-- target:demoDialogBtnAlignCenterTarget -->
+<div ui="type:dialog" class="ec-dialog">
+    <strong>标题</strong>
+    <div class="dialog-content" id="dialog_test"></div>
+    <div class="action btn-align-center">
+        <div ui="type:@Cancel">取消</div>
+        <div class="ec-btn btn-type-primary">确认</div>
+    </div>
+</div>
+
+<!-- target:demoDialogBtnAlignRightTarget -->
+<div ui="type:dialog" class="ec-dialog">
+    <strong>标题</strong>
+    <div class="dialog-content" id="dialog_test"></div>
+    <div class="action btn-align-right">
+        <div ui="type:@Cancel">取消</div>
+        <div class="ec-btn btn-type-primary">确认</div>
+    </div>
+</div>
+
+<!-- target:demoDialogBodyTarget -->
+<form name="">
+    <section class="body-test"></section>
+</form>

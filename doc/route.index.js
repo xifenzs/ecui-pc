@@ -73,7 +73,33 @@
                 findChildrenControl: function(el) {
                     return yiche.util.findChildrenControl(el, NS.ui.BorderCheckBox)
                 }
-            })
+            }),
+            OpenDialog: ecui.inherits(
+                ecui.ui.Control,
+                function(el, options) {
+                    ecui.ui.Control.call(this, el, options);
+                    this._alignTyle = options.btnAlgin;
+                }, {
+                    onclick: function() {
+                        const type = this._alignTyle;
+                        if (!type) {
+                            return;
+                        }
+                        switch (type) {
+                            case 'center':
+                                yiche.util.initDialog('dialogContainer', 'demoDialogBtnAlignCenterTarget', {}).showModal();
+                                break;
+                            case 'right':
+                                yiche.util.initDialog('dialogContainer', 'demoDialogBtnAlignRightTarget', {}).showModal();
+                                break;
+                            default:
+                                yiche.util.initDialog('dialogContainer', 'demoDialogBtnAlignLeftTarget', {}).showModal();
+                                break;
+                        }
+                        ecui.esr.callRoute('dialogTest', true);
+                    }
+                }
+            )
         }
     );
 
@@ -157,5 +183,14 @@
         onleave: function(context) {
             yiche.util.removeDialog();
         }
+    });
+
+    ecui.esr.addRoute('dialogTest', {
+        model: [],
+        main: 'dialog_test',
+        view: 'demoDialogBodyTarget',
+        onbeforerequest: function(context) {},
+        onbeforerender: function(context) {},
+        onafterrender: function(context) {}
     });
 }());

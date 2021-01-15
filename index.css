@@ -655,6 +655,7 @@ body {
 .ec-btn {
     border: 1px solid #dcdfe6;
     border-radius: 2px;
+    box-sizing: border-box;
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #606266;
@@ -1017,4 +1018,74 @@ body {
         }
     }
       
+}
+
+
+.ec-dialog {
+    box-sizing: border-box;
+
+    .ui-dialog-title{
+        background: #ffffff;
+        text-align: left;
+        box-sizing: border-box;
+        padding: 0 16px;
+    }
+
+    .ui-dialog-body{
+        box-sizing: border-box;
+        height: 300px;
+        overflow: hidden;
+
+        .dialog-content {
+            width: 100%;
+            height: calc(~"100% - 72px");
+            box-sizing: border-box;
+            overflow: hidden auto;
+            padding: 16px;
+        }
+
+        .action {
+            display: flex;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 6px;
+            width: 100%;
+            height: 72px;
+
+            .ui-button{
+                width: 40px;
+                height: 30px;
+                border: 1px solid #dcdfe6;
+                border-radius: 2px;
+                font-family: PingFangSC-Regular;
+                font-size: 14px;
+                color: #606266;
+                line-height: 30px;
+                padding: 0 16px;
+                text-align: center;
+                display: inline-block;
+                background: #fff;
+                margin: 0 10px;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+
+            .ec-btn{
+                width: 74px;
+                margin: 0 10px;
+            }
+
+            &.btn-align-center {
+                justify-content: center;
+            }
+
+            &.btn-align-right {
+                justify-content: flex-end;
+            }
+        }
+    }
 }
