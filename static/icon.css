@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';
-  src:  url('fonts/iconfont.eot?us8hbf');
-  src:  url('fonts/iconfont.eot?us8hbf#iefix') format('embedded-opentype'),
-    url('fonts/iconfont.ttf?us8hbf') format('truetype'),
-    url('fonts/iconfont.woff?us8hbf') format('woff'),
-    url('fonts/iconfont.svg?us8hbf#iconfont') format('svg');
+  src:  url('fonts/iconfont.eot?3qvgii');
+  src:  url('fonts/iconfont.eot?3qvgii#iefix') format('embedded-opentype'),
+    url('fonts/iconfont.ttf?3qvgii') format('truetype'),
+    url('fonts/iconfont.woff?3qvgii') format('woff'),
+    url('fonts/iconfont.svg?3qvgii#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,61 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.iconfont-home-bhshcy:before {
+  content: "\e914";
+}
+.iconfont-home-jrtfjh:before {
+  content: "\e915";
+}
+.iconfont-home-xsbzztggz:before {
+  content: "\e916";
+}
+.iconfont-home-zxzdjh:before {
+  content: "\e917";
+}
+
+.iconfont-nav-promotion-idea:before {
+  content: "\e90a";
+}
+.iconfont-nav-promotion-ad-plan:before {
+  content: "\e90b";
+}
+.iconfont-nav-collapse:before {
+  content: "\e90c";
+}
+.iconfont-nav-promotion-project:before {
+  content: "\e90f";
+}
+.iconfont-nav-collapsed:before {
+  content: "\e910";
+}
+.iconfont-nav-promotion-ad-group:before {
+  content: "\e911";
+}
+.iconfont-nav-report-overview:before {
+  content: "\e908";
+}
+.iconfont-nav-report-ad-plan:before {
+  content: "\e903";
+}
+.iconfont-nav-report-ad-group:before {
+  content: "\e904";
+}
+.iconfont-nav-report-idea:before {
+  content: "\e905";
+}
+.iconfont-nav-report-car-model:before {
+  content: "\e906";
+}
+.iconfont-nav-user-pad:before {
+  content: "\e907";
+}
+.iconfont-nav-report-project:before {
+  content: "\e902";
+}
+.iconfont-down-out:before {
+  content: "\e901";
+}
 .iconfont-checkbox-part:before {
   content: "\e900";
 }
@@ -79,7 +134,18 @@
 .iconfont-indent-decrease:before {
   content: "\ea7c";
 }
-.iconfont-radio-status:before {
+.iconfont-delete:before {
+  content: "\e909";
+}
+.iconfont-add:before {
+  content: "\e912";
+}
+.iconfont-prewiew:before {
+  content: "\e913";
+}
+
+
+.iconfont-radio-status:before{
   content: "\ea56";
 }
 
@@ -104,3 +170,4 @@
   font-size: 20px;
   color: #409eff;
 }
+

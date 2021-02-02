@@ -16,6 +16,7 @@
             STORAGE_HEADER: 'EFFECT_',
             routeLists: [], // 项目中的全部路由
             API_BASE: '/dsp-console/console/report/', // 接口前缀
+            UPLOAD_FILES_HEADER: {}
         }
     };
     /* 阻止 ie 按删除键会回退页面 - begin */
@@ -207,6 +208,13 @@
                 }
                 // 面包屑导航
                 context.globleCrumbs = [];
+
+                // 设置文件上传的请求头
+                yiche.info.UPLOAD_FILES_HEADER = {
+                    'x-model-name': 'idea',
+                    'customReferer': window.location.href,
+                    'x-access-token': yiche.util.getSessionStorage('token')
+                };
             },
             onafterrender: function(context) {
 

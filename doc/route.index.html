@@ -375,6 +375,102 @@
             <i class="iconfont iconfont-indent-decrease"></i>
             <p>iconfont-indent-decrease</p>
         </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-checkbox-part"></i>
+            <p>iconfont-checkbox-part</p>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20 iconfont-html">
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-down-out"></i>
+            <p>iconfont-down-out</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-delete"></i>
+            <p>iconfont-delete</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-add"></i>
+            <p>iconfont-add</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-prewiew"></i>
+            <p>iconfont-prewiew</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-project"></i>
+            <p>iconfont-nav-report-project</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-user-pad"></i>
+            <p>iconfont-nav-user-pad</p>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20 iconfont-html">
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-car-model"></i>
+            <p>iconfont-nav-report-car-model</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-idea"></i>
+            <p>iconfont-nav-report-idea</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-ad-group"></i>
+            <p>iconfont-nav-report-ad-group</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-ad-plan"></i>
+            <p>iconfont-nav-report-ad-plan</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-report-overview"></i>
+            <p>iconfont-nav-report-overview</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-promotion-ad-group"></i>
+            <p>iconfont-nav-promotion-ad-group</p>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20 iconfont-html">
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-collapsed"></i>
+            <p>iconfont-nav-collapsed</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-promotion"></i>
+            <p>iconfont-nav-promotion</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-collapse"></i>
+            <p>iconfont-nav-collapse</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-promotion-ad-plan"></i>
+            <p>iconfont-nav-promotion-ad-plan</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-nav-promotion-idea"></i>
+            <p>iconfont-nav-promotion-idea</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-home-zxzdjh"></i>
+            <p>iconfont-home-zxzdjh</p>
+        </div>
+    </div>
+    <div class="ec-row ec-mb-20 iconfont-html">
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-home-xsbzztggz"></i>
+            <p>iconfont-home-xsbzztggz</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-home-jrtfjh"></i>
+            <p>iconfont-home-jrtfjh</p>
+        </div>
+        <div class="ec-col col-4">
+            <i class="iconfont iconfont-home-bhshcy"></i>
+            <p>iconfont-home-bhshcy</p>
+        </div>
     </div>
 
 
@@ -523,6 +619,62 @@
 
 
     <h1>上传</h1>
+    <section class="ec-row ec-mb-20" style="align-items:flex-start;">
+        <div class="ec-col col-12">
+            <h3>文件上传</h3>
+            <div class="ec-upload-file upload-file" ui="type:yiche.ui.CustomUploads;fileType:0;maxCount:5;id:uploadFile1;">
+                <div class="ec-btn btn-type-primary upload-select-file" ui="type:@SelectFiles;">
+                    <input type="file" class="ui-hide" accept=".png,.jpg,.jpeg" multiple />
+                    <span>选择文件</span>
+                </div>
+                <ul class="file-list-wrap">
+                    <span class="ui-hide">上传非图片和视频时需要改元素来确定插入位置</span>
+                </ul>
+            </div>
+        </div>
+        <div class="ec-col col-12">
+            <h3>图片上传新开窗口预览</h3>
+            <div class="ec-upload-file upload-img-video" ui="type:yiche.ui.CustomUploads;fileType:1;maxCount:10;id:uploadFile2;">
+                <ul class="file-list-wrap">
+                    <div class="upload-select-file" ui="type:@SelectFiles;">
+                        <input type="file" class="ui-hide" accept=".png,.jpg,.jpeg" multiple />
+                        <span class="iconfont iconfont-add"></span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="ec-row ec-mb-20" style="align-items:flex-start;">
+        <div class="ec-col col-12">
+            <h3>视频上传</h3>
+            <div class="ec-upload-file upload-img-video" ui="type:yiche.ui.CustomUploads;fileType:2;maxCount:1;id:uploadFile3;">
+                <ul class="file-list-wrap">
+                    <div class="upload-select-file" ui="type:@SelectFiles;">
+                        <input type="file" class="ui-hide" accept=".mp4" multiple />
+                        <span class="iconfont iconfont-add"></span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="ec-col col-12">
+            <h3>图片上传本页预览</h3>
+            <div class="ec-upload-file upload-img-video" ui="type:yiche.ui.CustomUploads;fileType:1;maxCount:10;id:uploadFile4;preview:m;">
+                <ul class="file-list-wrap">
+                    <div class="upload-select-file" ui="type:@SelectFiles;">
+                        <input type="file" class="ui-hide" accept=".png,.jpg,.jpeg" multiple />
+                        <span class="iconfont iconfont-add"></span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <h1>树结构单选</h1>
+    <div class="ec-row ec-mb-20">
+        <div class="ec-col col-12">
+            <!-- use: customTreeSelectTarget(treeData=${treeData}, value=11) -->
+        </div>
+    </div>
 
 
 </div>

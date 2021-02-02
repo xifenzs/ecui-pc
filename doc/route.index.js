@@ -178,8 +178,112 @@
                 checked: false,
                 disabled: false
             }];
+            // tree data
+            context.treeData = [{
+                    id: 1,
+                    name: '你好',
+                    children: [{
+                        id: 11,
+                        name: '你好11',
+                        children: []
+                    }, {
+                        id: 12,
+                        name: '你好12',
+                        children: []
+                    }, {
+                        id: 13,
+                        name: '你好13',
+                        children: []
+                    }, {
+                        id: 14,
+                        name: '你好14',
+                        children: []
+                    }]
+                },
+                {
+                    id: 2,
+                    name: '你好2',
+                    children: [{
+                        id: 21,
+                        name: '你好21',
+                        children: []
+                    }, {
+                        id: 22,
+                        name: '你好22',
+                        children: []
+                    }, {
+                        id: 23,
+                        name: '你好23',
+                        children: []
+                    }, {
+                        id: 24,
+                        name: '你好24',
+                        children: []
+                    }]
+                },
+                {
+                    id: 33,
+                    name: '你好33',
+                    children: [{
+                        id: 31,
+                        name: '你好31',
+                        children: []
+                    }, {
+                        id: 32,
+                        name: '你好32',
+                        children: []
+                    }, {
+                        id: 33,
+                        name: '你好33',
+                        children: []
+                    }, {
+                        id: 34,
+                        name: '你好34',
+                        children: []
+                    }]
+                },
+                {
+                    id: 4,
+                    name: '你好4',
+                    children: [{
+                        id: 41,
+                        name: '你好41',
+                        children: []
+                    }, {
+                        id: 42,
+                        name: '你好42',
+                        children: []
+                    }, {
+                        id: 43,
+                        name: '你好43',
+                        children: []
+                    }, {
+                        id: 44,
+                        name: '你好44',
+                        children: []
+                    }]
+                }
+            ];
         },
-        onafterrender: function(context) {},
+        onafterrender: function(context) {
+            // 回显已经上传文件
+            const fileLists = [{
+                name: '文件1',
+                url: 'http://image.bitautoimg.com/slpfile/6bfa3d43ff1d4ffa947a7d3601568639.jpg',
+                uploadStatus: true
+            }, {
+                name: '文件2',
+                url: 'http://image.bitautoimg.com/slpfile/45c054d58ec349ee8a2685a4a6147a4e.jpg',
+                uploadStatus: true
+            }, {
+                name: '文件3',
+                url: 'http://image.bitautoimg.com/slpfile/a5b98ddd214747179c5d5e6b736c7d29.jpg',
+                uploadStatus: true
+            }];
+            ecui.get('uploadFile1').setValues(fileLists);
+            ecui.get('uploadFile2').setValues(fileLists);
+            ecui.get('uploadFile4').setValues(fileLists);
+        },
         onleave: function(context) {
             yiche.util.removeDialog();
         }

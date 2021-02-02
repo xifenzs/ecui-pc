@@ -648,6 +648,529 @@
                     }, 0);
                 }
             }
+        ),
+
+        // 树结构单选
+        CustomTreeSelect: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                ecui.ui.Control.call(this, el, options);
+                this._oResData = null;
+            }, {
+                CustomItem: ecui.inherits(
+                    ecui.ui.Control,
+                    function(el, options) {
+                        ecui.ui.Control.call(this, el, options);
+                        this._oRowData = options.data;
+                    }, {
+                        hasExpend: function() {
+                            let el = this.getMain();
+                            return ecui.dom.hasClass(el, 'tree-item-expend');
+                        },
+                        onclick: function(e) {
+                            let targetEl = e.target;
+                            this.handleCollapse(targetEl);
+                        },
+                        handleCollapse: function(dom) {
+                            if (this._oRowData.children.length > 0) {
+                                if (!ecui.dom.hasClass(dom, 'icon-open')) {
+                                    return;
+                                }
+                                let el = this.getMain();
+                                if (this.hasExpend()) {
+                                    ecui.dom.removeClass(el, 'tree-item-expend');
+                                } else {
+                                    ecui.dom.addClass(el, 'tree-item-expend');
+                                }
+                            }
+                        },
+                        CustomChildItem: ecui.inherits(
+                            ecui.ui.Control,
+                            function(el, options) {
+                                ecui.ui.Control.call(this, el, options);
+                                this._oChildItemData = options.data;
+                            }, {
+                                onclick: function(e) {
+                                    e.stopPropagation();
+                                    this.getParent().getParent().clearStatus();
+                                    this.alterStatus('+actived');
+                                    this.getParent().getParent().setValue(this._oChildItemData);
+                                }
+                            }
+                        )
+                    },
+                ),
+                setValue: function(obj) {
+                    this._oResData = obj;
+                },
+                // 外部设置值
+                handleSetValue(id) {
+                    let allCustomItem = yiche.util.findChildrenControl(this.getMain(), this.CustomItem);
+                    if (allCustomItem && allCustomItem.length > 0) {
+                        allCustomItem.forEach(item => {
+                            if (item._oRowData.children.length > 0) {
+                                let child = yiche.util.findChildrenControl(item.getMain(), item.CustomChildItem);
+                                if (child && child.length > 0) {
+                                    child.forEach(cItem => {
+                                        if (cItem._oChildItemData.id == id) {
+                                            ecui.dispatchEvent(cItem, 'click');
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                },
+                getValue: function() {
+                    return this._oResData;
+                },
+                clearStatus: function() {
+                    let allCustomItem = yiche.util.findChildrenControl(this.getMain(), this.CustomItem);
+                    if (allCustomItem && allCustomItem.length > 0) {
+                        allCustomItem.forEach(item => {
+                            if (item._oRowData.children.length > 0) {
+                                let child = yiche.util.findChildrenControl(item.getMain(), item.CustomChildItem);
+                                if (child && child.length > 0) {
+                                    child.forEach(cItem => {
+                                        cItem.alterStatus('-actived');
+                                    })
+                                }
+                            }
+                        })
+                    }
+                },
+                SearchItem: ecui.inherits(
+                    ecui.ui.Text,
+                    'custom-search-text',
+                    function(el, options) {
+                        ecui.ui.Text.call(this, el, options);
+                        var clearEl = ecui.dom.create('SPAN', {
+                            className: 'clear-icon'
+                        });
+                        el.appendChild(clearEl);
+                        this._uClear = ecui.$fastCreate(this.ClearValue, clearEl, this, {});
+                        var searchEl = ecui.dom.create('SPAN', {
+                            className: 'search-icon'
+                        });
+                        el.appendChild(searchEl);
+                        this._uSearch = ecui.$fastCreate(this.SearchText, searchEl, this, {});
+                        this._sCheckRule = options.checkRule;
+                    }, {
+                        SearchText: ecui.inherits(ecui.ui.Control, {
+                            onclick: function() {
+                                const value = this.getParent().getValue();
+                                this.getParent().getParent().handleSearch(value);
+                            }
+                        }),
+                        ClearValue: ecui.inherits(ecui.ui.Control, {
+                            onclick: function() {
+                                this.getParent().setValue('');
+                            }
+                        })
+                    }
+                ),
+                handleSearch: function(value) {
+                    let allCustomItem = yiche.util.findChildrenControl(this.getMain(), this.CustomItem);
+                    if (allCustomItem && allCustomItem.length > 0) {
+                        allCustomItem.forEach(item => {
+                            if (item._oRowData.children.length > 0) {
+                                let child = yiche.util.findChildrenControl(item.getMain(), item.CustomChildItem),
+                                    len = child.length,
+                                    count = 0;
+                                if (child && len > 0) {
+                                    child.forEach(cItem => {
+                                        if (value !== '') {
+                                            cItem.hide(cItem);
+                                            if (cItem._oChildItemData.id == value || cItem._oChildItemData.name.indexOf(value) !== -1) {
+                                                cItem.show();
+                                                count = count + 1;
+                                            }
+                                        } else {
+                                            cItem.show();
+                                            count = count + 1;
+                                        }
+                                    })
+                                    if (count === 0) {
+                                        item.hide();
+                                    } else {
+                                        item.show();
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        ),
+
+        // 文件上传 
+        CustomUploads: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                ecui.ui.Control.call(this, el, options);
+                this._sFileType = options.fileType || '0'; // 0: 文件 1:图片 2:视频
+                this._sUploadUrl = options.url || '/serve-idea/api/file/upload'; // 上传地址
+                this._sCheckFileInfo = options.checkFileInfo || {
+                    size: 99999999999,
+                    msg: '不限制文件大小!'
+                }; // 文件大小校验信息
+                this._nMaxCount = options.maxCount || 1; //一次最大可上传数量
+                this._sPreviewType = options.preview || 'a'; //一次最大可上传数量 a:打开一个新窗口预览  m: 当前页出现一个蒙层进行预览
+            }, {
+                SelectFiles: ecui.inherits(
+                    ecui.ui.Upload,
+                    function(el, options) {
+                        ecui.ui.Upload.call(this, el, options);
+                        this._eFiles = el.querySelector('input');
+                    }, {
+                        onclick: function() {
+                            this._eFiles.click();
+                        },
+                        $ready: function(options) {},
+                        init: function(event) {
+                            ecui.ui.Upload.prototype.init.call(this, event);
+                            ecui.dom.addEventListener(this._eFiles, 'change', this.getParent().handleGetFiles);
+                        }
+                    }
+                ),
+                // 获取选中的文件信息
+                handleGetFiles: function(e) {
+                    let files = [],
+                        fileInputEl = this,
+                        selectEl = ecui.dom.parent(fileInputEl),
+                        canUpload = true;
+                    // 获取文件上传控件
+                    let customUploads = selectEl.getControl().getParent() || null;
+                    if (!e.target.files || !customUploads) {
+                        return;
+                    }
+                    files = Array.prototype.slice.call(e.target.files, 0);
+                    if (files.length === 0) {
+                        return;
+                    }
+
+                    // 校验一次最大上传数量
+                    if (customUploads._nMaxCount && customUploads.checkMaxuploadNumber && !customUploads.checkMaxuploadNumber(files.length)) {
+                        return;
+                    }
+
+                    // 校验文件大小
+                    if (customUploads._sCheckFileInfo) {
+                        for (let i = 0, len = files.length; i < len; i++) {
+                            const file = files[i],
+                                fileName = file.name,
+                                size = file.size;
+                            // 1M文件的大小是1048576（1*1024*1024）
+                            if (size / 1024 > customUploads._sCheckFileInfo.size) {
+                                ecui.tip('error', `${fileName}${customUploads._sCheckFileInfo.msg}`);
+                                canUpload = false;
+                                return;
+                            }
+                            // 检验文件是否重复上传
+                            canUpload = customUploads.checkFileRepeat(fileName);
+                        }
+                    }
+
+                    if (!canUpload) {
+                        return;
+                    }
+                    // 上传文件
+                    let fileSecCount = files.length;
+                    files.forEach((file) => {
+                        // 
+                        const currentName = file.name;
+                        // 添加占位元素
+                        let itemFileInfo = {
+                            name: file.name,
+                            uploadStatus: false
+                        };
+                        customUploads.addFileItem(itemFileInfo, 'add');
+
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(e) {
+                            const data = new FormData();
+                            data.append('file', file);
+                            ecui.io.ajax(customUploads._sUploadUrl, {
+                                method: 'POST',
+                                data: data,
+                                headers: yiche.info.UPLOAD_FILES_HEADER,
+                                onupload: function(e) {
+                                    const percent = Math.round(e.loaded / e.total * 100);
+                                    customUploads.updateProgressStatus(percent, currentName);
+                                },
+                                onsuccess: function(res) {
+                                    if (typeof res == 'string') {
+                                        res = JSON.parse(res);
+                                    }
+                                    if (res.code === 0) {
+                                        customUploads.uploadSuccess(res.data, currentName);
+                                    }
+                                    // 解决前后2次选同一个文件不触发file的change事件
+                                    fileSecCount--;
+                                    if (fileSecCount === 0) {
+                                        fileInputEl.value = '';
+                                    }
+                                },
+                                onerror: function(event) {
+                                    customUploads.uploadFail(currentName);
+                                    // 解决前后2次选同一个文件不触发file的change事件
+                                    fileSecCount--;
+                                    if (fileSecCount === 0) {
+                                        fileInputEl.value = '';
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },
+                uploadSuccess: function(res, name) {
+                    let fileItem = this.getMain().getControl().FileItem;
+                    let itemFiles = yiche.util.findChildrenControl(this.getMain(), fileItem).filter(i => i._oData.name === name);
+                    let current = itemFiles[0],
+                        itemEl = current.getMain();
+                    ecui.dom.removeClass(itemEl, 'loading');
+                    if (res instanceof Object) {
+                        current._oData = Object.assign(current._oData, res, {
+                            uploadStatus: true
+                        })
+                    } else {
+                        current._oData = Object.assign(current._oData, {
+                            url: res,
+                            uploadStatus: true
+                        })
+                    }
+                    if (this._sFileType === '1') {
+                        itemEl.querySelector('.item-file-wrap img').src = res;
+                        itemEl.querySelector('.mask a').href = res;
+                    }
+                    if (this._sFileType === '2') {
+                        itemEl.querySelector('.item-file-wrap video').src = res;
+                        itemEl.querySelector('.mask a').href = res;
+                    }
+                },
+                uploadFail: function(name) {
+                    let fileItem = this.getMain().getControl().FileItem;
+                    let itemFiles = yiche.util.findChildrenControl(this.getMain(), fileItem).filter(i => i._oData.name === name);
+                    let current = itemFiles[0],
+                        itemEl = current.getMain();
+                    ecui.dom.removeClass(itemEl, 'loading');
+                    ecui.dom.removeClass(itemEl, 'success');
+                    ecui.dom.addClass(itemEl, 'fail');
+                },
+                FileItem: ecui.inherits(
+                    ecui.ui.Control,
+                    function(el, options) {
+                        ecui.ui.Control.call(this, el, options);
+                        this._oData = options.rowData;
+
+                    }, {
+                        onclick: function(e) {
+                            let el = e.target;
+                            if (!ecui.dom.hasClass(el, 'iconfont')) {
+                                return;
+                            }
+                            // 删除
+                            if (ecui.dom.hasClass(el, 'del-icon')) {
+                                let wrapEl = this.getMain();
+                                ecui.dispose(wrapEl);
+                                ecui.dom.remove(wrapEl);
+                                return;
+                            }
+                            // 预览
+                            let parent = this.getParent().getMain().getControl();
+                            if (parent._sPreviewType === 'm' && ecui.dom.hasClass(el, 'handle-prewiew-img')) {
+                                let currentName = this._oData.name,
+                                    fileItem = parent.FileItem,
+                                    itemFiles = yiche.util.findChildrenControl(parent.getMain(), fileItem);
+                                if (itemFiles.length === 0) {
+                                    return;
+                                }
+                                let list = [],
+                                    current = -1;
+                                itemFiles.forEach((item, index) => {
+                                    list.push(item._oData);
+                                    if (item._oData.name === currentName) {
+                                        current = index;
+                                    }
+                                })
+                                ecui.get('handlePreview').initPreview(list, current);
+                            }
+                        }
+                    }
+                ),
+                addFileItem: function(file, type) {
+                    let fileListWrpaEl = this.getMain().querySelector('.file-list-wrap');
+                    if (!fileListWrpaEl) {
+                        return;
+                    }
+                    let tempEl = ecui.dom.create({
+                        innerHTML: ecui.esr.getEngine().render('customUploadFileTarget', {
+                            timestamp: Date.now(),
+                            file,
+                            type,
+                            viewType: this._sFileType,
+                            preview: this._sPreviewType
+                        })
+                    });
+                    let fileItemEl = ecui.dom.first(tempEl);
+                    ecui.dom.insertBefore(fileItemEl, ecui.dom.last(fileListWrpaEl));
+                    ecui.init(fileItemEl);
+                },
+                updateProgressStatus: function(percent, name) {
+                    let fileItem = this.getMain().getControl().FileItem;
+                    let itemFiles = yiche.util.findChildrenControl(this.getMain(), fileItem).filter(i => i._oData.name === name);
+                    let current = itemFiles[0],
+                        itemEl = current.getMain();
+                    ecui.dom.addClass(itemEl, 'loading');
+                    itemEl.querySelector('.progress-wrap .text').innerHTML = `${percent}%`;
+                    itemEl.querySelector('.progress-wrap .progress-bar').style.width = `${percent}%`;
+                    if (percent === 100) {
+                        ecui.dom.removeClass(itemEl, 'loading');
+                        ecui.dom.addClass(itemEl, 'success');
+                    }
+                },
+                checkFileRepeat: function(name) {
+                    let fileItem = this.getMain().getControl().FileItem;
+                    let itemFiles = yiche.util.findChildrenControl(this.getMain(), fileItem);
+                    for (let i = 0, len = itemFiles.length; i < len; i++) {
+                        let fileName = itemFiles[i]._oData.name;
+                        if (fileName === name) {
+                            ecui.tip('error', `${name}已经存在,请勿重复上传!`);
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                checkMaxuploadNumber: function(selectCount) {
+                    let fileItem = this.getMain().getControl().FileItem;
+                    let fileCount = yiche.util.findChildrenControl(this.getMain(), fileItem).length + selectCount;
+                    if (fileCount <= this._nMaxCount) {
+                        return true;
+                    } else {
+                        ecui.tip('error', `最多可上传${this._nMaxCount}个文件!`);
+                        return false;
+                    }
+                },
+                getValues: function() {
+                    let fileItem = this.getMain().getControl().FileItem,
+                        itemFiles = yiche.util.findChildrenControl(this.getMain(), fileItem),
+                        successFiles = itemFiles.filter(i => i._oData.uploadStatus),
+                        countFile = itemFiles.length;
+                    if (successFiles.length !== countFile) {
+                        ecui.tip('error', '请删除上传失败的图片再提交保存!');
+                        return [];
+                    }
+                    let result = [];
+                    itemFiles.forEach(item => {
+                        result.push(item._oData);
+                    });
+                    return result;
+                },
+                setValues: function(list) {
+                    if (list.length === 0) {
+                        return;
+                    }
+                    list.forEach(item => {
+                        this.addFileItem(item, 'edit');
+                    })
+                }
+            }
+        ),
+
+        // 图片预览
+        CustomPreview: ecui.inherits(
+            ecui.ui.Control,
+            function(el, options) {
+                ecui.ui.Control.call(this, el, options);
+                this._sCurrentIndex = options.index;
+                this._oDataList = options.data;
+                this._eImgWrapEl = el.querySelector('.swiper');
+                this._uPrev = null;
+                this._uNext = null;
+                this.hide();
+            }, {
+                HandleHide: ecui.inherits(
+                    ecui.ui.Control, {
+                        onclick: function() {
+                            let parent = this.getParent();
+                            parent.repaint();
+                            parent._sCurrentIndex = 0;
+                            parent._oDataList = [];
+                            parent._eImgWrapEl.innerHTML = '';
+                            parent.hide();
+                        }
+                    }
+                ),
+                PreviewImgChange: ecui.inherits(
+                    ecui.ui.Control,
+                    function(el, options) {
+                        ecui.ui.Control.call(this, el, options);
+                        this._sBtnType = options.btnType;
+                    }, {
+                        onclick: function() {
+                            let parent = this.getParent(),
+                                list = parent._oDataList,
+                                imgPos = parent._eImgWrapEl,
+                                uPrev = parent._uPrev,
+                                uNext = parent._uNext,
+                                type = this._sBtnType,
+                                len = list.length;
+                            if (type === 'prev') {
+                                parent._sCurrentIndex--;
+                                if (parent._sCurrentIndex === 0) {
+                                    uPrev.hide();
+                                }
+                                if (!uNext.isShow()) {
+                                    uNext.show();
+                                }
+
+                            } else {
+                                parent._sCurrentIndex++;
+                                if (parent._sCurrentIndex === len - 1) {
+                                    uNext.hide();
+                                }
+                                if (!uPrev.isShow()) {
+                                    uPrev.show();
+                                }
+                            }
+                            imgPos.innerHTML = `<img src="${list[parent._sCurrentIndex].url}" alt="${list[parent._sCurrentIndex].name}" />`;
+                        }
+                    }
+                ),
+                initPreview: function(list, index) {
+                    this._oDataList = [];
+                    this._sCurrentIndex = 0;
+                    if (list.length === 0) {
+                        return;
+                    }
+                    this._oDataList = list;
+                    this._sCurrentIndex = index;
+                    const imgEl = `<img src="${this._oDataList[this._sCurrentIndex].url}" alt="${this._oDataList[this._sCurrentIndex].name}" />`;
+                    this._eImgWrapEl.innerHTML = imgEl;
+                    this.show();
+                    if (this._sCurrentIndex === 0 && this._oDataList.length === 1) {
+                        this._uPrev.hide();
+                        this._uNext.hide();
+                    } else if (this._sCurrentIndex === 0 && this._oDataList.length - 1 > 0) {
+                        this._uPrev.hide();
+                        this._uNext.show();
+                    } else if (this._sCurrentIndex === this._oDataList.length - 1 && this._oDataList.length - 1 > 0) {
+                        this._uPrev.show();
+                        this._uNext.hide();
+                    } else {
+                        this._uPrev.show();
+                        this._uNext.show();
+                    }
+                },
+                onready: function() {
+                    let btnControls = yiche.util.findChildrenControl(this.getMain(), this.PreviewImgChange);
+                    if (btnControls.length === 2) {
+                        this._uPrev = btnControls[0];
+                        this._uNext = btnControls[1];
+                    }
+                }
+            }
         )
     };
 }());

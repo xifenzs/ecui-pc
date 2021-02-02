@@ -64,14 +64,8 @@
 <div id="dialogContainer"></div>
 <div id="dialogContainer_1"></div>
 <div id="dialogContainer_2"></div>
-<div class="loading-before"></div>
 <div class="loading-after"></div>
-<div class="preview-session ui-hide" id="preview_session_handle">
-    <div class="close" ui="type:yiche.ui.PreviewHide"></div>
-    <div class="session-main">
-        <div class="swiper"></div>
-    </div>
-</div>
+<!-- use: customPreviewImgTarget() -->
 
 
 <!-- target:userLogooutTarget -->
@@ -79,3 +73,128 @@
 <div class="exit" ui="type:yiche.ui.CustomLogout">
     <img src="images/exit.png" alt="">
 </div>
+
+
+
+<!-- target: customUploadFileTarget -->
+<!-- var: addType = ${type} === 'add' ? '' : 'success' -->
+<!-- if: ${viewType} === '0' -->
+<li class="file-item ${addType}" ui="type:@FileItem;rowData:&{file};">
+    <div title="${file.name}" class="name">${file.name}</div>
+    <div class="progress-wrap">
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="status">
+            <span class="text"></span>
+            <span class="icon"></span>
+        </div>
+    </div>
+    <span class="del-icon iconfont iconfont-delete"></span>
+</li>
+<!-- elif: ${viewType} === '1' -->
+<!-- var: fileUrl = ${type} === 'edit' ? ${file.url} : 'images/place-holder.png' -->
+<li class="file-item ${addType}" ui="type:@FileItem;rowData:&{file};">
+    <div class="item-file-wrap">
+        <img src="${fileUrl}" alt="" />
+    </div>
+    <div class="mask">
+        <!-- if: ${preview} === 'a' -->
+        <a href="${fileUrl}" target="_blank">
+            <span class="iconfont iconfont-prewiew"></span>
+        </a>
+        <!-- else -->
+        <span class="iconfont iconfont-prewiew handle-prewiew-img"></span>
+        <!-- /if -->
+        <span class="iconfont iconfont-delete del-icon"></span>
+    </div>
+    <div class="progress-wrap">
+        <div class="status">
+            <span class="text">45%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+    <div class="error-wrap">
+        <div class="error-icon">
+            <span class="iconfont iconfont-image"></span>
+        </div>
+        <div class="error-text">
+            <span>上传失败</span>
+        </div>
+    </div>
+</li>
+<!-- elif: ${viewType} === '2' -->
+<!-- var fileUrl = ${type} === 'edit' ? ${file.url} : '' -->
+<li class="file-item ${addType}" ui="type:@FileItem;rowData:&{file};">
+    <div class="item-file-wrap">
+        <video src="${fileUrl}" alt="" />
+    </div>
+    <div class="mask">
+        <!-- if: ${preview} === 'a' -->
+        <a href="" target="_blank">
+            <span class="iconfont iconfont-prewiew"></span>
+        </a>
+        <!-- else -->
+        <span class="iconfont iconfont-prewiew handle-prewiew-img"></span>
+        <!-- /if -->
+        <span class="iconfont iconfont-delete del-icon"></span>
+    </div>
+    <div class="progress-wrap">
+        <div class="status">
+            <span class="text">45%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+    <div class="error-wrap">
+        <div class="error-icon">
+            <span class="iconfont iconfont-image"></span>
+        </div>
+        <div class="error-text">
+            <span>上传失败</span>
+        </div>
+    </div>
+</li>
+<!-- else -->
+
+<!-- /if -->
+
+
+
+<!-- target: customPreviewImgTarget -->
+<div class="preview-session" ui="type:yiche.ui.CustomPreview;id:handlePreview;">
+    <div class="session-main">
+        <div class="close" ui="type:@HandleHide;"></div>
+        <div class="btn left" ui="type:@PreviewImgChange;btnType:prev;"></div>
+        <div class="btn right" ui="type:@PreviewImgChange;btnType:next;"></div>
+        <div class="swiper">
+        </div>
+    </div>
+</div>
+
+<!-- target:customTreeSelectTarget -->
+<section ui="type:yiche.ui.CustomTreeSelect;">
+    <div ui="type:@SearchItem;trim:true;placeholder:不限制输入内容;"></div>
+    <ul class="ec-custom-tree">
+        <!-- for: ${treeData} as ${item} -->
+        <!-- if: ${item.children} && ${item.children.length} > 0 -->
+        <li class="tree-item" ui="type:@CustomItem;data:&{item};">
+            <div class="tree-parent">
+                <i class="icon-open"></i>
+                <span>${item.name}</span>
+            </div>
+            <ul class="child-wrap">
+                <!-- for: ${item.children} as ${cItem} -->
+                <li class="child-item" ui="type:@CustomChildItem;data:&{cItem};">${cItem.name}</li>
+                <!-- /for -->
+            </ul>
+        </li>
+        <!-- else -->
+        <li class="tree-item" ui="type:@CustomItem;data:&{item};">${item.name}</li>
+        <!-- /if -->
+        <!-- /for -->
+    </ul>
+</section>
