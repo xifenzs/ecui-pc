@@ -17,10 +17,10 @@
                 CustomNavsParent: ecui.inherits(ecui.ui.Control,
                     function(el, options) {
                         ecui.ui.Control.call(this, el, options);
-                        this._navData = options.navItem;
+                        this._oNavData = options.navItem;
                     }, {
                         onclick: function() {
-                            let hasChildNav = this._navData.children;
+                            let hasChildNav = this._oNavData.children;
                             // 如果没有子菜单 就直接添加样式
                             if (hasChildNav && hasChildNav.length === 0) {
                                 this.removeParentControlSelected();
@@ -37,7 +37,7 @@
                         CustomNavsChild: ecui.inherits(ecui.ui.Control,
                             function(el, options) {
                                 ecui.ui.Control.call(this, el, options);
-                                this._navData = options.navItem;
+                                this._oNavData = options.navItem;
                             }, {
                                 onclick: function(e) {
                                     this.getParent().removeParentControlSelected();
@@ -64,12 +64,12 @@
                         let child = yiche.util.findChildrenControl(item.getMain(), item.CustomNavsChild);
                         if (child && child.length > 0) { // 二级导航
                             child.forEach(cItem => {
-                                if (cItem._navData.route === loc) {
+                                if (cItem._oNavData.route === loc) {
                                     ecui.dispatchEvent(cItem, 'click');
                                 }
                             })
                         } else { // 一级导航
-                            if (item._navData.route === loc) {
+                            if (item._oNavData.route === loc) {
                                 ecui.dispatchEvent(item, 'click');
                             }
                         }
@@ -193,14 +193,6 @@
                 }
             }
         ),
-        // 图片预览
-        PreviewHide: ecui.inherits(ecui.ui.Control, {
-            onclick: function() {
-                let elPreview = ecui.$('preview_session_handle');
-                ecui.dom.addClass(elPreview, 'ui-hide');
-                elPreview.querySelector('.swiper').innerHTML = '';
-            }
-        }),
         // 点击展开显示子元素
         CustomToggle: ecui.inherits(
             ecui.ui.Control,
