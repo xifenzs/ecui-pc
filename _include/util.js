@@ -425,7 +425,22 @@
                 }
             });
         },
-
+        /**
+         * 获取数据类型。
+         * @public
+         *
+         * @param {string} data 接口地址
+         * @return {string} 数据类型
+         *
+         *  
+         */
+        getDataType: function(obj) {
+            let type = typeof obj;
+            if (type !== 'object') {
+                return type;
+            }
+            return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1');
+        }
     };
 
     Date.prototype.pattern = function(fmt) {

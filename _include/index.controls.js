@@ -597,18 +597,22 @@
                     let scopedEl = ecui.$(this._sScopedName),
                         checkBoxControls = this.findChildrenControl(scopedEl),
                         len = checkBoxControls.length,
-                        res = [];
+                        res = [],
+                        oldData = [];
                     if (len > 0) {
                         checkBoxControls.forEach(item => {
                             if (item._oItemData.checked) {
                                 res.push(item._oItemData);
                             }
+                            oldData.push(item._oItemData);
                         })
                     }
                     let nowLen = res.length;
                     return {
                         len,
-                        nowLen
+                        nowLen,
+                        res,
+                        oldData
                     }
                 },
                 findChildrenControl: function(el) {
@@ -634,10 +638,13 @@
                 },
                 onready: function() {
                     let timer = setTimeout(() => {
-                        let { len, nowLen } = this.getData();
-                        this.changeStatus(len, nowLen);
+                        this.refreshStatus();
                         clearTimeout(timer);
                     }, 0);
+                },
+                refreshStatus: function() {
+                    let { len, nowLen } = this.getData();
+                    this.changeStatus(len, nowLen);
                 }
             }
         ),
@@ -1163,6 +1170,6 @@
                     }
                 }
             }
-        )
+        ),
     };
 }());
