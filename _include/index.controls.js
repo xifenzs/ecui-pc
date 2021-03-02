@@ -868,9 +868,6 @@
                     if (!canUpload) {
                         return;
                     }
-                    if (customUploads._nMaxCount === '1') {
-                        customUploads.getMain().querySelector('.ui-upload').getControl().hide();
-                    }
                     // 上传文件
                     let fileSecCount = files.length;
                     files.forEach((file) => {
@@ -1073,9 +1070,6 @@
                 setValues: function(list) {
                     if (list.length === 0) {
                         return;
-                    }
-                    if (this._nMaxCount === '1') {
-                        this.getMain().querySelector('.ui-upload').getControl().hide();
                     }
                     list.forEach(item => {
                         this.addFileItem(item, 'edit');
