@@ -44,7 +44,7 @@
             window.requestCount++;
             ecui.dom.addClass(document.body, 'ui-loading');
         }
-    }
+    };
 
     /**
      * esr执行异常处理函数。
@@ -105,7 +105,7 @@
                 try {
                     var errInfo = JSON.parse(item.xhr.response);
                     ecui.globalTips(
-                        errInfo.description,
+                        errInfo.error,
                         'error'
                     );
                 } catch (err) {
