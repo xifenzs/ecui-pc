@@ -69,9 +69,9 @@
         err.forEach(function (item) {
             if (item.url) {
                 try {
-                    var errInfo = JSON.parse(item.xhr.response);
+                    const errInfo = item.xhr.statusText;
                     ecui.globalTips(
-                        errInfo.error,
+                        errInfo,
                         'error'
                     );
                 } catch (err) {
