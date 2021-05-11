@@ -661,6 +661,7 @@ body {
     .ui-select-text {
         height: 30px;
         line-height: 30px;
+        font-size: 12px;
     }
 
     .frd-muti-level-select-text {
