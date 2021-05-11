@@ -1,7 +1,23 @@
 /*<script>window.onload=function(){var url=location.href,hash=document.getElementsByTagName('TEXTAREA')[0].value;url=decodeURIComponent(url.slice(url.lastIndexOf('=')+1));parent.location.href=url+'#'+encodeURIComponent(hash.slice(hash.indexOf('\n')+1).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&')||' ');}</script><textarea>*/
 @import (less) "common/css/UICONST.css";
-@import (less) "style.css";
 
+::-webkit-scrollbar {
+    width: 8px;
+    height:8px;
+    display: block;
+    background-color:#f0ffff;
+}
+   
+::-webkit-scrollbar-thumb {
+    width: 8px;
+    height:8px;
+    border-radius: 4px;
+    background-color: #CFCFCF;
+}
+   
+::-webkit-scrollbar-thumb:hover {
+   background-color:#999999;
+}
 
 body {
     height: 100%;
@@ -35,11 +51,19 @@ body {
 .ec-mb-20 {
     margin-bottom: 20px !important;
 }
+.no-result {
+    width: 100%;
+    height: 300px;
+    background: url(images/base/empty.png) no-repeat center;
+    background-size: 250px 140px;
+}
+
 
 .content-wrap {
     height: 100%;
     overflow: auto;
     background: rgb(242, 245, 250);
+    min-width: 1440px;
 
     .content-header {
         height: 60px;
@@ -258,7 +282,6 @@ body {
     .content {
         box-sizing: border-box;
         padding: 24px 24px 0;
-        min-width: 1440px;
         min-height: calc(~"100% - 108px");
 
         .content-main {
@@ -274,6 +297,111 @@ body {
 
                 .page-query {
                     box-sizing: border-box;
+                }
+
+                .page-list-session {
+                    box-sizing: border-box;
+                    background: #ffffff;
+                    padding: 24px;
+
+                    .handle-box {
+                        box-sizing: border-box;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        padding: 0 0 20px;
+                    }
+
+                    table {
+                        border-collapse: collapse;
+
+                        tr {
+                            border-bottom: 1px #EDEFF2 solid;
+                            z-index: 10;
+
+                            th {
+                                background-color: #f6f7fc;
+                                border: none;
+                                font-family: PingFangSC-Medium;
+                                font-size: 14px;
+                                color: #3D4861;
+                                letter-spacing: 0;
+                                font-weight: bold;
+                                height: 50px;
+                                line-height: 50px;
+                                padding: 0px;
+                                text-align: center;
+                                box-sizing: border-box;
+                            }
+
+                            td {
+                                border: none;
+                                font-family: PingFangSC-Regular;
+                                font-size: 12px;
+                                color: #67779C;
+                                letter-spacing: 0;
+                                height: 50px;
+                                box-sizing: border-box;
+                                padding: 0 10px;
+                                text-align: center;
+                                word-break: break-all;
+                                text-overflow: ellipsis;
+                                box-sizing: border-box;
+                                display: table-cell;
+                                vertical-align: inherit;
+
+                                span,a {
+                                    box-sizing: border-box;
+                                    &.word-clamp-2 {
+                                        display: -webkit-box;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 2;
+                                        overflow: hidden;
+                                        line-height: 20px;
+                                    }
+
+                                    &.handle-enable {
+                                        color: #3d70fb;
+                                        padding: 0 10px;
+                                        cursor: pointer;
+                                    }
+
+                                    &.ui-disabled {
+                                        color: #666;
+                                        cursor: not-allowed;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(odd) {
+                                td {
+                                    background-color: #ffffff;
+                                }
+                            }
+
+                            &:nth-child(even) {
+                                td {
+                                    background-color: #fbfcfc;
+                                }
+                            }
+
+                            &:hover{
+                                td {
+                                    background-color: #f5f7fa;
+                                }
+                            }
+                        }
+                    }
+
+                    .ui-pagination {
+                        text-align: center;
+                        margin: 30px auto 20px;
+
+                        .page-info {
+                            width: auto;
+                            padding: 0 20px;
+                        }
+                    }
                 }
             }
         }
@@ -301,29 +429,89 @@ body {
     }
 }
 
-.frd-range-calendar-option {
-    width: 602px;
-    border-top: 1px solid #e6e6e6;
-}
-
 .frd-range-date {
     width: 100%;
     min-width: 200px;
-    height: 32px;
+    height: 30px;
     margin-bottom: 20px;
     text-align: left;
     padding-right: 40px;
-    line-height: 32px;
+    line-height: 30px;
     border: 1px solid #dee1e5;
-    border-radius: 2px;
+    border-radius: 4px;
     background: #fff url(images/calendar/date-icon.png) no-repeat calc(~'100% - 10px') center;
     background-size: 14px 14px;
 
     .frd-range-date-text {
         box-sizing: border-box;
         padding: 0 10px;
+        font-size: 12px;
     }
 }
+.frd-range-calendar-option {
+    width: 450px;
+    border-top: 1px solid #e6e6e6;
+
+    .ui-calendar-title {
+        color: #333333 !important;
+        font-size: 14px !important;
+    }
+
+    .ui-today {
+        background: none;
+
+        div {
+            color: #3366ff !important;
+            background: #fff !important;
+            border-radius: 50%;
+            border: 1px solid #3366ff;
+        }
+    }
+}
+.frd-range-calendar {
+    background-color: #fff;
+    width: 224px;
+    box-shadow: 0 2px 6px 0 rgba(86, 86, 86, .5);
+    border-radius: 4px
+}
+
+.frd-range-calendar table {
+    height: 200px;
+    width: 100%
+}
+
+.frd-range-calendar table {
+    padding: 7px;
+    border: none
+}
+
+.ui-range-calendar .ui-range-date-option .frd-range-calendar table tr td {
+    width: 30px;
+    text-align: center
+}
+
+.frd-range-calendar table tr td {
+    display: inline-block;
+    width: 38px;
+    height: 24px;
+    line-height: 24px
+}
+
+.frd-range-calendar table tr td div {
+    color: #505050;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-width: 0;
+    border-radius: 50%;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 24px;
+    cursor: pointer;
+    margin: 0 auto
+}
+
 
 .ec-row {
     box-sizing: border-box;
@@ -403,19 +591,19 @@ body {
     box-sizing: border-box;
     width: 100%;
     min-width: 200px;
-    height: 36px;
+    height: 32px;
     display: flex;
     align-items: center;
     font-size: 12px;
     color: #7b8497;
     background: #ffffff;
     border: 1px solid #dee1e5;
-    border-radius: 2px;
+    border-radius: 4px;
 
     input {
         height: 100%;
         flex: 1;
-        line-height: 36px;
+        line-height: 32px;
         box-sizing: border-box;
         padding: 0 10px !important;
         display: inline-block;
@@ -450,50 +638,59 @@ body {
     }
 }
 
-
-
 .ui-combox,
 .ui-select {
     box-sizing: border-box;
     width: 100%;
     min-width: 200px;
-    height: 36px;
+    height: 32px;
     text-align: left;
     font-size: 12px;
     color: #7b8497;
     background: #ffffff;
     border: 1px solid #dee1e5;
-    border-radius: 2px;
+    border-radius: 4px;
 
     .ui-combox-text {
         input {
-            background: #ffffff url(images/ecui/arrow.png) no-repeat calc(~'100% - 10px') center;
+            background: #ffffff url(images/frd/triangel.png) no-repeat calc(~'100% - 10px') center;
+            font-size: 12px;
         }
     }
 
     .ui-select-text {
-        height: 34px;
-        line-height: 34px;
+        height: 30px;
+        line-height: 30px;
     }
 
     .frd-muti-level-select-text {
-        height: 36px;
-        line-height: 36px;
+        height: 30px;
+        line-height: 30px;
     }
 }
 
 .ui-select {
-    background: #ffffff url(images/ecui/arrow.png) no-repeat calc(~'100% - 10px') center;
+    background: #ffffff url(images/frd/triangel.png) no-repeat calc(~'100% - 10px') center;
 }
 
 .ui-select-options {
     box-sizing: border-box;
 
-    .ui-select-item {
-        height: 34px;
-        line-height: 34px;
+    .ui-item {
+        height: 30px;
+        line-height: 30px;
         padding: 0 4px;
         box-sizing: border-box;
+        font-size: 12px;
+        &:hover {
+            background-color: #f5f7fa;
+            color: #606266;
+        }
+
+        &.ui-item-selected {
+            background-color: #f5f7fa;
+            color: #409eff !important;
+        }
     }
 }
 
@@ -501,10 +698,20 @@ body {
     box-sizing: border-box;
 
     .ui-item {
-        height: 34px;
-        line-height: 34px;
+        height: 30px;
+        line-height: 30px;
         padding: 0 4px;
+        font-size: 12px;
         box-sizing: border-box;
+        &:hover {
+            background-color: #f5f7fa;
+            color: #606266;
+        }
+
+        &.ui-item-selected {
+            background-color: #f5f7fa;
+            color: #409eff;
+        }
     }
 }
 
@@ -561,19 +768,19 @@ body {
         box-sizing: border-box;
         width: 100%;
         min-width: 200px;
-        height: 36px;
+        height: 32px;
         display: flex;
         align-items: center;
         font-size: 12px;
         color: #7b8497;
         background: #ffffff;
         border: 1px solid #dee1e5;
-        border-radius: 2px;
+        border-radius: 4px;
 
         input {
             height: 100%;
             flex: 1;
-            line-height: 36px;
+            line-height: 32px;
             box-sizing: border-box;
             padding: 0 10px !important;
             display: inline-block;
@@ -583,7 +790,6 @@ body {
         .clear-icon {
             height: 100%;
             width: 30px;
-            background-color: #fff;
             background-image: url(images/delete.png);
             background-repeat: no-repeat;
             background-position: center center;
@@ -664,7 +870,7 @@ body {
     font-size: 14px;
     color: #606266;
     height: 32px;
-    line-height: 32px;
+    line-height: 30px;
     padding: 0 16px;
     text-align: center;
     display: inline-block;
@@ -675,7 +881,7 @@ body {
         width: 12px;
         height: 12px;
         vertical-align: top;
-        margin-top: 10px;
+        margin-top: 8px;
         margin-right: 10px;
         display: inline-block;
     }
@@ -723,17 +929,21 @@ body {
     }
 }
 
+
 .ui-pagination {
     height: 35px;
+    font-size: 12px;
 
     .page-info {
         height: 100%;
         line-height: 35px;
-        width: 180px;
+        min-width: 80px;
+        width: auto;
         display: inline-block;
         vertical-align: middle;
         text-align: right;
         margin-right: 10px;
+        font-size: 12px;
     }
 
     .page-num-wrap {
@@ -743,21 +953,25 @@ body {
         margin-right: 10px;
 
         .ui-item {
+            box-sizing: border-box;
             display: inline-block;
             vertical-align: middle;
-            height: 32px;
-            width: 32px;
+            height: 30px;
+            min-width: 30px;
+            font-size: 12px;
+            width: auto;
+            padding: 0 3px;
             text-align: center;
-            line-height: 32px;
+            line-height: 30px;
             background: #ffffff;
-            border: 1px solid #d9d9d9;
+            border: 1px solid #EDEFF2;
+            border-radius: 4px;
             margin: 0 4px !important;
             cursor: pointer;
         }
 
         .ui-item-selected {
-            background: #3366ff;
-            color: #ffffff;
+            color: #3366ff;
             border-color: #3366ff;
         }
 
@@ -788,17 +1002,21 @@ body {
     }
 
     .page-size {
-        height: 32px;
-        line-height: 32px;
+        height: 30px;
+        line-height: 30px;
         width: 106px;
         display: inline-block;
         vertical-align: middle;
-        border: 1px solid #d9d9d9;
+        border: 1px solid #EDEFF2;
+        border-radius: 4px;
         padding-left: 5px;
+        margin-top: -4px;
+        background: #ffffff url(images/frd/triangel.png) no-repeat 90px center;
 
         .ui-select-text {
             height: 100%;
             width: 70px;
+            font-size: 12px;
             text-align: left;
         }
 
@@ -808,20 +1026,23 @@ body {
     }
 
     .page-jump {
-        height: 32px;
+        height: 30px;
         width: 130px;
         display: inline-block;
         vertical-align: middle;
         margin-left: 10px;
+        margin-top: -4px;
 
         .ui-text {
-            height: 32px;
+            height: 30px;
             width: 63px;
             display: inline-block;
             position: relative;
             top: -1px;
-            border: 1px solid #d9d9d9;
+            border: 1px solid #EDEFF2;
+            border-radius: 4px;
             margin: 0 5px;
+            font-size: 12px;
             text-align: left;
 
             input {
@@ -1092,15 +1313,38 @@ body {
 
 }
 
+.ui-loading {
+    .loading-after {
+        display: block;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 64016;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.6) url('images/base/loading.gif') center center no-repeat;
+        background-size: 50px 50px;
+    }
+}
+.ui-mask {
+    opacity: 0.6 !important;
+}
 
 .ec-dialog {
     box-sizing: border-box;
+    min-width: 600px;
+    max-width: 1000px;
+    max-height: 600px;
 
     .ui-dialog-title {
         background: #ffffff;
         text-align: left;
         box-sizing: border-box;
         padding: 0 16px;
+        font-family: PingFangSC-Regular;
+        font-size: 18px;
+        color: #67779C;
+        border-bottom: 1px solid #EDEFF2;
     }
 
     .ui-dialog-body {
@@ -1172,7 +1416,7 @@ body {
     .tree-item {
         box-sizing: border-box;
         width: 100%;
-        min-height: 45px;
+        min-height: 30px;
         background: rgba(0, 0, 0, 0.02);
         box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06);
         border-radius: 2px 2px 0 0;
@@ -1182,11 +1426,11 @@ body {
         .tree-parent {
             box-sizing: border-box;
             width: 100%;
-            height: 45px;
+            height: 32px;
             display: flex;
             align-items: center;
             font-family: PingFangSC-Regular;
-            font-size: 14px;
+            font-size: 12px;
             color: rgba(0, 0, 0, 0.85);
             line-height: 22px;
             padding: 0 18px;
@@ -1216,10 +1460,10 @@ body {
             .child-item {
                 width: 100%;
                 box-sizing: border-box;
-                height: 42px;
+                height: 32px;
                 padding: 0 40px;
                 font-family: PingFangSC-Regular;
-                font-size: 14px;
+                font-size: 12px;
                 color: rgba(0, 0, 0, 0.85);
                 line-height: 22px;
                 display: flex;
@@ -1632,7 +1876,7 @@ body {
     left: 0;
     top: 0;
     z-index: 999999;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.6);
 
     .session-main {
         width: 800px;
