@@ -10,7 +10,7 @@
             PROJECT_NAME: '顶部导航项目模板', // logo旁的项目名称
             STORAGE_HEADER: 'EFFECT_',
             routeLists: [], // 项目中的全部路由
-            API_BASE: '/dsp-console/console/report/', // 接口前缀
+            API_BASE: '/communitycms/', // 接口前缀
             UPLOAD_FILES_HEADER: {}
         }
     };
@@ -95,6 +95,7 @@
         ecui.esr.headers = {
             'X-Requested-With': 'XMLHttpRequest',
             'Content-Type': 'application/json;charset=UTF-8',
+            'token': 'MTYyMTQ3NzQ3Njc3Mi17ImNyZWF0ZV9zdGltZSI6MTYxNTc3ODAxODAwMCwiaWQiOjIsImlzQWN0aXZlIjoxLCJpc0RlbGV0ZWQiOjAsInVwZGF0ZV9zdGltZSI6MTYxNTc3ODAxODAwMCwidXNlck5hbWUiOiJsaXdhbmNhaSIsInVzZXJUcnVlTmFtZSI6IuadjuS4h+aJjSJ9',
             'customReferer': window.location.href
         };
         // 配合后端重定向，地址栏地址改变时，将 location.href 更新到请求头的 customReferer 字段
@@ -201,6 +202,7 @@
                 // 设置文件上传的请求头
                 yiche.info.UPLOAD_FILES_HEADER = {
                     'x-model-name': 'idea',
+                    'token': 'MTYyMTQ3NzQ3Njc3Mi17ImNyZWF0ZV9zdGltZSI6MTYxNTc3ODAxODAwMCwiaWQiOjIsImlzQWN0aXZlIjoxLCJpc0RlbGV0ZWQiOjAsInVwZGF0ZV9zdGltZSI6MTYxNTc3ODAxODAwMCwidXNlck5hbWUiOiJsaXdhbmNhaSIsInVzZXJUcnVlTmFtZSI6IuadjuS4h+aJjSJ9',
                     'customReferer': window.location.href
                 };
             },

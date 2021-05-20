@@ -805,7 +805,7 @@
             function (el, options) {
                 ecui.ui.Control.call(this, el, options);
                 this._sFileType = options.fileType || '0'; // 0: 文件 1:图片 2:视频
-                this._sUploadUrl = `${yiche.info.API_BASE}${options.url}` || '/serve-idea/api/file/upload'; // 上传地址
+                this._sUploadUrl = `${yiche.info.API_BASE}${options.url}` || `${yiche.info.API_BASE}image/addByAttachment`; // 上传地址
                 this._sCheckFileInfo = options.checkFileInfo || {
                     size: 99999999999,
                     msg: '不限制文件大小!'
@@ -813,7 +813,7 @@
                 this._nMaxCount = options.maxCount || 1; //一次最大可上传数量
                 this._sPreviewType = options.preview || 'a'; //一次最大可上传数量 a:打开一个新窗口预览  m: 当前页出现一个蒙层进行预览
                 this._oFileValues = options.fileList; // 回显文件
-                this._sFileParamsName = options.fileParamName || 'file'; //请求参数名称定义
+                this._sFileParamsName = options.fileParamName || 'imageFileName'; //请求参数名称定义
             }, {
                 SelectFiles: ecui.inherits(
                     ecui.ui.Upload,
